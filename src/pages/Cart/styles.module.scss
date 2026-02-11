@@ -1,0 +1,348 @@
+@import "@styles/mixin.module.scss";
+@import "@styles/variable.module.scss";
+
+.container{
+    margin-top: 83px;
+}
+
+.containerSteps{
+    @include flex_box_custom(center, center, 40px);
+
+    flex-direction: column;
+    padding: 2.3vw 0;
+    background-color: #fafafa;
+    margin-bottom: 2.3vw;
+
+    .steps{
+        @include flex_box_custom(center, center, 20px);
+
+        .line{
+            min-width: 120px;
+            background-color: #e1e1e1;
+            height: 1px
+        }
+    }
+
+    .textNoti{
+        font-size: 16px;
+        color: $four_color;
+    }
+
+    .stepper{
+        @include flex_box_custom(center, center, 10px);
+
+        .numberStep{
+            @include flex_box_custom(center, center, 0);
+
+            background-color: $primary_color;
+            font-size: 12px;
+            color: $white_color;
+            padding: 4px 7px;
+            border-radius: 50%;
+        }
+  
+        .textStep{
+            font-size: 21px;
+            font-weight: 300;
+            color: $four_color;
+            text-transform: uppercase;
+        }
+
+        .isDisableNumber{
+            background-color: transparent;
+            border: 1px solid #e1e1e1;
+            color: #888;
+        }
+
+        .isDisableText{
+            background-color: transparent;
+            color: #9a9a9a;
+        }
+    }
+}
+
+.containerContent{
+    @include flex_box_custom(space-between, flex-start, 30px);
+    padding-bottom: 50px;
+
+    .containerBoxLeft{
+        width: 60%;
+
+        .containerTable{
+            width: 100%;
+            position: relative;
+
+            .cartTable {
+                width: 100%;
+                font-size: 14px;
+
+                .header{
+                font-size: 14px;
+                }
+
+                .header,
+                .row {
+                    display: grid;
+                    grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
+                    align-items: center;
+                }
+
+                .header {
+                    padding: 16px 0;
+                    border-bottom: 1px solid #e1e1e1;
+                    color: #333;
+                }
+
+                .row {
+                    padding: 20px 0;
+                    border-bottom: 1px solid #e1e1e1;
+                }
+
+                .product {
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    position: relative;
+
+                    img {
+                        width: 80px;
+                        height: auto;
+                        object-fit: cover;
+                    }
+                }
+
+                .info {
+                    h4 {
+                        margin: 0 0 6px;
+                        font-size: 16px;
+                        color: #222;
+                        font-weight: 400;
+                    }
+
+                    p {
+                        margin: 0;
+                        font-size: 14px;
+                        color: #222;
+                    }
+                }
+
+                .remove {
+                    margin-left: auto;
+                    cursor: pointer;
+                    color: #aaa;
+                    margin-right: 10px;
+
+                    &:hover {
+                        color: #000;
+                    }
+                }
+
+                .sku{
+                    color: #555;
+                    margin: 0 5px;
+                }
+
+                .price,
+                .subtotal {
+                    color: #888;
+                }
+
+                .quantity {
+                    select {
+                        color: #888;
+                        padding: 5px 15px;
+                        border: 1px solid #e1e1e1;
+                        outline: none;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        .boxFooter{
+                @include flex_box_custom(space-between, center, 0);
+                margin-top: 20px;
+
+                .boxCoupon{
+                    @include flex_box_custom(space-between, center, 0);
+
+                    input{
+                        line-height: 36px;
+                        padding: 0 20px;
+                        width: 330px;
+                        color: $four_color;
+                        font-size: 16px;
+                        border: 1px solid #e1e1e1;
+                        outline: none;
+                    }
+
+                    button{
+                        width: 36px;
+                        height: 36px;
+                        padding: 0;
+                        margin: 0;
+                        border: 1px solid $primary_color;
+                        border-radius: 0;
+                        font-size: 12px;
+                        text-transform: uppercase;
+                    }  
+
+                }
+
+                .boxBtnDelete{
+                    width: 220px;
+
+                    .contentBtnDelete{
+                        font-size: 12px;
+                        @include flex_box_custom(center, center, 10px);
+                        text-transform: uppercase;
+
+                    }
+
+                    button{
+                        margin: 0;
+                        padding: 11px 0;
+                        border: 1px solid $primary_color;
+                    }
+                }
+        }
+        
+    }
+
+    .containerSummary{
+        flex: 1;
+
+        .contentSummary{
+            padding: 20px;
+            border: 2px solid $four_color;
+            position: relative;
+
+            .title{
+                font-size: 14px;
+                color: $primary_color;
+                padding-bottom: 14px;
+                border-bottom: 1px solid #e1e1e1;
+                margin-bottom: 20px;
+            }
+
+            .boxTotal{
+                @include flex_box_custom(space-between, flex-start, 0);
+
+                .subTotal{
+                    font-size: 16px;
+                    color: $thr_color;
+                    padding-bottom: 26px;
+                }
+
+                .priceSubTotal{
+                    font-size: 14px;
+                    color: $seconddary_color;
+                }
+
+                .priceTotal,
+                .totalCss{
+                    font-size: 20px;
+                    color: $four_color;
+                }
+
+            }
+
+            .boxBtn{
+                margin-top: 20px;
+            }
+        }
+    }
+
+    .containerMethods{
+        position: relative;
+        margin-top: 30px;
+        padding: 22px 0;
+        width: 100%;
+        border: 1px solid #e1e1e1;
+
+        .titleMethods{
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            padding: 0 10px;
+            background-color: $white_color;
+            font-size: 14px;
+            color: $four_color;
+            text-transform: uppercase;
+
+            span{
+                color: #2e7d32;
+            }
+        }
+
+        .boxImgMethod{
+            @include flex_box_custom(center, center, 10px);
+
+            img{
+                border: 1px solid #e1e1e1;
+                width: 50px;
+                border-radius: 5px;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .textSecure{
+        margin-top: 12px;
+        text-align: center;
+        font-size: 14px;
+        color: $thr_color;
+
+        span{
+            color: $four_color;
+        }
+    }
+
+}
+
+.loading{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    @include flex_box_custom(center, center, 0);
+}
+
+.boxEmptyCart{
+    @include flex_box_custom(center, center, 0);
+
+    flex-direction: column;
+    width: 100%;
+    padding: 70px 0;
+
+    .boxEmptyCartIcon{
+        font-size: 36px;
+    }
+
+    .boxEmptyCartTitle{
+        font-size: 24px;
+        font-weight: 400;
+        color: $primary_color;
+        margin: 10px 0;
+    }
+
+    .boxEmptyCartDesc{
+        font-size: 14px;
+        color: $thr_color;
+        margin: 10px 0;
+    }
+
+    .boxEmptyCartbtn{
+        width: 165px;
+        margin-top: 10px;
+
+        button{
+            font-size: 12px;
+        }
+        
+    }
+}

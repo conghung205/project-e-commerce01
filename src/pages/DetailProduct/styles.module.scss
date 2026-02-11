@@ -1,0 +1,154 @@
+@import "@styles/mixin.module.scss";
+@import "@styles/variable.module.scss";
+
+.container{
+    padding-top: 83px;
+
+    .navigateSection{
+       @include flex_box_custom(space-between, center, 0);
+
+       font-size: 14px;
+       color: $seconddary_color;
+    }
+
+    .contentSection{
+        @include flex_box_custom(space-between, flex-start, 30px);
+        margin-top: 10px;
+
+        .imageBox{
+            @include flex_box_custom(space-between, unset, 10px);
+            flex-wrap: wrap;
+            flex: 1;
+
+            img{
+                width: calc(100% / 2 - 5px);
+                object-fit: cover;
+                border-radius: 2px;
+                cursor: zoom-in;
+            }
+        }
+
+        .contentBox{
+            flex: 1;
+
+            .title{
+                margin: 0 0 20px;
+                font-size: 24px;
+                color: $four_color;
+                font-weight: 400;
+            }
+
+            .priceProduct{
+                margin: 0 0 20px;
+                font-size: 20px;
+                color: $seconddary_color;
+            }
+
+            .desc{
+                font-size: 16px;
+                color: $thr_color;
+                margin: 0 0 20px;
+            }
+
+            .containerSize{
+                font-size: 16px;
+                color: $thr_color;
+
+                .boxSize{
+                    @include flex_box_custom(flex-start, center, 10px);
+
+                    margin-top: 10px;
+
+                    .size{
+                        padding: 9px 12px;
+                        border: 1px solid #e1e1e1;
+                        font-size: 12px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .addToCartSection{
+                @include flex_box_custom(flex-start, center, 20px);
+
+                margin-top: 30px;
+
+                .boxAddTocart{
+                    flex: 1;
+
+                    button{
+                        margin: 0;
+                        font-size: 12px
+                    }
+                    .btnAddTocart{
+                        @include flex_box_custom(center, center, 5px);
+                    }
+                }
+
+
+                .incremenAmount{
+                    @include flex_box_custom(flex-start, center, 0);
+
+                    div{
+                        @include flex_box_custom(center, center, 0);
+                        border: 1px solid #e1e1e1;
+                        height: 38px;
+                        padding: 0 5px;
+                        color: $seconddary_color;
+                        cursor: pointer;
+
+                        &:hover{
+                            color: $four_color;
+                        }
+                    }
+
+                    .quantity{
+                        @include flex_box_custom(center, center, 0);
+                        border-left: none;
+                        border-right: none;
+                        width: 38px;
+                        height: 38px;
+                        color: $four_color;
+                        cursor: unset;
+                    }
+                }
+            }
+
+            .orSection{
+                @include flex_box_custom(space-between, center, 10px);
+
+                margin: 20px 0;
+
+                .textOr{
+                    font-size: 12px;
+                    color: $four_color;
+                }
+
+                .line{
+                    flex: 1;
+                    background-color: #e1e1e1;
+                    height: 1px;
+                }
+            }
+
+            .buyNowSection{
+                font-size: 12px;
+
+                button{
+                    margin: 0;
+                    font-size: 12px;
+
+                    &:hover{
+                        background-color: $four_color;
+                        color: $white_color;
+                    }
+                }
+
+                .btnBuyNow{
+                    @include flex_box_custom(center, center, 5px);
+                }
+            }
+            
+        }
+    }
+}

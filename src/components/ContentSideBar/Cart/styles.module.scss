@@ -1,0 +1,65 @@
+@import "@styles/mixin.module.scss";
+@import "@styles/variable.module.scss";
+
+
+.container{
+    @include flex_box_custom(space-between, space-between, 0px);
+    flex-direction: column;
+    height: 95%;
+    
+    .headerCart{
+        margin-bottom: 30px;
+    }
+
+    .footer{
+        padding: 0 20px;
+    }
+    .total{
+        @include flex_box_custom(space-between, space-between, 0px);
+        padding: 20px 0;
+        margin-bottom: 20px;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .boxBtn{
+        @include flex_box_custom(space-between, unset, 0);
+        flex-direction: column;
+    }
+
+    .containerListProductCart{
+        position: relative;
+    }
+    .overlayLoading{
+        @include flex_box_custom(center, center, 0);
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .boxEmpty{
+        @include flex_box_custom(center, center, 10px);
+
+        margin-top: 10px;
+        flex-direction: column;
+        font-size: 14px;
+        color: $four_color;
+    }
+
+    .containerListItem{
+        @include flex_box_custom(space-between, unset, 0);
+        position: relative;
+
+        flex-direction: column;
+        flex-grow: 1;
+    }
+}
+
+.isEmpty{
+    justify-content: unset;
+    align-items: center;
+}

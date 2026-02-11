@@ -1,0 +1,105 @@
+@import "../../assets/styles/mixin.module";
+@import "../../assets/styles/variable.module";
+
+.container{
+    @include flex_box_custom(center, center, 0px);
+    left: 0;
+    right: 0;
+}
+
+.topHeader{
+    position: absolute;
+    top: 0;
+}
+
+.fixedHeader {
+    position: fixed;
+    top: -100px;
+    background-color: #FFFFFFE6;
+    box-shadow: 2px 0 12px 0 rgba(0, 0, 0, .15);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    transform: translateY(100px);
+    transition: transform 0.5s ease;
+}
+
+.containerHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 83px;
+    width: 1250px;
+}
+
+.containerBoxIcon{
+    @include flex_box_custom(center, center, 20px);
+
+    .icon{
+        cursor: pointer;
+    }
+}
+
+.containerBox{
+    @include flex_box_custom(center, center, 20px)
+}
+
+.containerMenu{
+    @include flex_box_custom(center, center, 40px)
+}
+
+.boxIcon{
+    @include radius_common(50%);
+    @include flex_box_custom(center, center, 0px);
+    background-color: $primary_color;
+    width: 26px;
+    height: 26px;
+}
+
+.menu{
+    cursor: pointer;
+    padding-top: 8px;
+    font-size: 15px;
+    color: $primary_color;
+    position: relative;
+
+    .subMenu{
+        position: absolute;
+        background-color: #fff;
+        width: 100%;
+        padding: 10px;
+        top: 30px;
+    }
+}
+
+.menu::after{
+    content: "";
+    display: block;
+    height: 3px;
+    margin-top: 2px;
+    background-color: $primary_color;
+    transform-origin: left;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.5s ;
+}
+.menu:hover::after{
+    opacity: 1;
+    transform: scale(1);
+}
+
+.boxCart{
+    position: relative;
+    
+    .quantity{
+        position: absolute;
+        font-size: 10px;
+        top: -6px;
+        right: -6px;
+        background-color: $primary_color;
+        color: #fff;
+        width: 15px;
+        height: 15px;
+        @include radius_common(50%);
+        @include flex_box_custom(center, center, 0);
+    }
+}

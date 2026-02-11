@@ -1,0 +1,39 @@
+@import "@styles/variable.module.scss";
+@import "@styles/mixin.module.scss";
+
+.container{
+    padding: 20px 55px;
+    background-color: $primary_color;
+    margin-top: -75px;
+    display: flex;
+    z-index: 1;
+}
+
+.containerCard{
+    @include flex_box_custom(space-between, center, 0);
+
+    padding: 15px;
+    color: $white_color;
+    flex: 1;
+}
+
+.iconCard{
+    margin-right: 20px;
+}
+
+.cardContent{
+    width: 192px;
+}
+
+.titleCard{
+    font-size: 17px;
+    color: $white_color;
+    line-height: 22px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+.descCard{
+    font-size: 16px;
+    color: #ffffffc7;
+    line-height: 1.4;
+}

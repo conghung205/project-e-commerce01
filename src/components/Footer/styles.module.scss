@@ -1,0 +1,42 @@
+@import "@styles/variable.module.scss";
+@import "@styles/mixin.module.scss";
+
+.container{
+    background-color: #363636;
+    padding: 40px 0;
+    margin-top: 80px;
+    color: $white_color;
+    font-size: 16px;
+    
+    @include flex_box_custom(center, center, 20px);
+    flex-direction: column;
+
+    .logoImg{
+        width: 160px;
+        color: #fff;
+        height: 55px;
+    }
+
+    .boxNav{
+        @include flex_box_custom(center, center, 0px);
+
+        list-style: none;
+        margin: 15px 0 40px 0;
+        font-size: 15px;
+
+        li{
+            margin: 0 20px;
+            transition: color 300ms;
+
+            &:hover{
+                color: #c4c2c2;
+                cursor: pointer;
+            }
+        }
+        
+    }
+
+    .copyight{
+        margin-top: 40px;
+    }
+}
