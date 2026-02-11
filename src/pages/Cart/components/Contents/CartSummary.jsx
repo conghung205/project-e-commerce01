@@ -3,6 +3,7 @@ import styles from "../../styles.module.scss";
 import Button from "@components/Button/Button";
 import { SideBarContext } from "@/contexts/SideBarProvider";
 import LoadingCart from "@pages/Cart/components/LoadingCart";
+import PaymentMethods from "@components/PaymentMethods/PaymentMethods";
 
 const CartSummary = () => {
     const {
@@ -19,15 +20,6 @@ const CartSummary = () => {
         boxImgMethod,
         textSecure,
     } = styles;
-
-    const srcMethods = [
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/visa.jpeg",
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/master-card.jpeg",
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/paypal.jpeg",
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/american-express.jpeg",
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/maestro.jpeg",
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/bitcoin.jpeg",
-    ];
 
     const { listProductCart, isLoading } = useContext(SideBarContext);
 
@@ -64,21 +56,7 @@ const CartSummary = () => {
                 {isLoading && <LoadingCart />}
             </div>
 
-            <div className={containerMethods}>
-                <div className={titleMethods}>
-                    Guaranteed <span>safe</span> checkout
-                </div>
-
-                <div className={boxImgMethod}>
-                    {srcMethods.map((item, index) => (
-                        <img key={index} src={item} alt="" />
-                    ))}
-                </div>
-            </div>
-
-            <div className={textSecure}>
-                Your Payment is <span>100% Secure</span>
-            </div>
+            <PaymentMethods />
         </>
     );
 };

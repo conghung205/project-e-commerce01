@@ -4,6 +4,9 @@ import MainLayout from "@components/Layout/Layout";
 import styles from "./styles.module.scss";
 import Button from "@components/Button/Button";
 import { BsCart3 } from "react-icons/bs";
+import { LuHeart } from "react-icons/lu";
+import { TfiReload } from "react-icons/tfi";
+import PaymentMethods from "@components/PaymentMethods/PaymentMethods";
 
 const DetailProduct = () => {
     const {
@@ -28,7 +31,18 @@ const DetailProduct = () => {
         line,
         buyNowSection,
         btnBuyNow,
+        addFunc,
+        info,
     } = styles;
+
+    const srcMethods = [
+        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/visa.jpeg",
+        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/master-card.jpeg",
+        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/paypal.jpeg",
+        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/american-express.jpeg",
+        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/maestro.jpeg",
+        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/bitcoin.jpeg",
+    ];
 
     return (
         <div>
@@ -112,6 +126,31 @@ const DetailProduct = () => {
                                     }
                                     Large={true}
                                 />
+                            </div>
+
+                            <div className={addFunc}>
+                                <div>
+                                    <LuHeart style={{ fontSize: "20px" }} />
+                                </div>
+                                <div>
+                                    <TfiReload style={{ fontSize: "20px" }} />
+                                </div>
+                            </div>
+
+                            <div>
+                                <PaymentMethods />
+                            </div>
+
+                            <div className={info}>
+                                <div>
+                                    Brand: <span>Brand 03</span>
+                                </div>
+                                <div>
+                                    SKU: <span>87654</span>
+                                </div>
+                                <div>
+                                    Category: <span>Men</span>
+                                </div>
                             </div>
                         </div>
                     </div>
