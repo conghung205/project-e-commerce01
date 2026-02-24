@@ -1,4 +1,8 @@
-
+.slick-arrow {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
 .slick-slider:hover .slick-arrow {
     width: 25px;
     height: 25px;
