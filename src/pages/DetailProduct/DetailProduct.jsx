@@ -12,6 +12,23 @@ import Infomation from "@pages/DetailProduct/components/Infomation";
 import Review from "@pages/DetailProduct/components/Review";
 import Footer from "@components/Footer/Footer";
 import SliderCommon from "@components/SliderCommon/SliderCommon";
+import ReactImageMagnifier from "simple-image-magnifier/react";
+import cls from "classnames";
+
+const tempDataSize = [
+    {
+        name: "L",
+        amount: "1000",
+    },
+    {
+        name: "M",
+        amount: "1000",
+    },
+    {
+        name: "S",
+        amount: "1000",
+    },
+];
 
 const DetailProduct = () => {
     const {
@@ -41,9 +58,13 @@ const DetailProduct = () => {
         accordionMenu,
         relatedSection,
         relatedTitle,
+        active,
+        clear,
+        activeDisabledBtn,
     } = styles;
 
     const [menuSelected, setMenuSelected] = useState(null);
+    const [sizeSelected, setSizeSelected] = useState("");
 
     const dataAccordionMenu = [
         {
@@ -57,6 +78,25 @@ const DetailProduct = () => {
             content: <Review />,
         },
     ];
+
+    const dataImageDetail = [
+        "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.2-min.jpg",
+        "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.2-min.jpg",
+        "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.2-min.jpg",
+        "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.2-min.jpg",
+    ];
+
+    const handleRenderZoomImage = (src) => {
+        return (
+            <ReactImageMagnifier
+                srcPreview={src}
+                srcOriginal={src}
+                width={295}
+                height={350}
+                objectFit="contain"
+            />
+        );
+    };
 
     const handleSetMenuSelected = (id) => {
         setMenuSelected((prev) => {
@@ -97,6 +137,14 @@ const DetailProduct = () => {
         },
     ];
 
+    const handleSelectSize = (size) => {
+        setSizeSelected(size);
+    };
+
+    const handleClearSize = () => {
+        setSizeSelected("");
+    };
+
     return (
         <div>
             <Header />
@@ -111,22 +159,9 @@ const DetailProduct = () => {
 
                     <div className={contentSection}>
                         <div className={imageBox}>
-                            <img
-                                src="https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.1-min.jpg"
-                                alt=""
-                            />
-                            <img
-                                src="https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.2-min.jpg"
-                                alt=""
-                            />
-                            <img
-                                src="https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.3-min.jpg"
-                                alt=""
-                            />
-                            <img
-                                src="https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.4-min.jpg"
-                                alt=""
-                            />
+                            {dataImageDetail.map((src) => {
+                                return handleRenderZoomImage(src);
+                            })}
                         </div>
                         <div className={contentBox}>
                             <h1 className={title}>Title product</h1>
@@ -137,12 +172,34 @@ const DetailProduct = () => {
                             </p>
 
                             <div className={containerSize}>
-                                Size:
+                                Size: {sizeSelected}
                                 <div className={boxSize}>
-                                    <div className={size}>L</div>
-                                    <div className={size}>M</div>
-                                    <div className={size}>S</div>
+                                    {tempDataSize.map((item, index) => {
+                                        return (
+                                            <div
+                                                key={index}
+                                                className={cls(size, {
+                                                    [active]:
+                                                        item.name ===
+                                                        sizeSelected,
+                                                })}
+                                                onClick={() =>
+                                                    handleSelectSize(item.name)
+                                                }
+                                            >
+                                                {item.name}
+                                            </div>
+                                        );
+                                    })}
                                 </div>
+                                {sizeSelected && (
+                                    <p
+                                        className={clear}
+                                        onClick={handleClearSize}
+                                    >
+                                        Clear
+                                    </p>
+                                )}
                             </div>
 
                             <div className={addToCartSection}>
@@ -158,6 +215,9 @@ const DetailProduct = () => {
                                             <div className={btnAddTocart}>
                                                 <BsCart3 /> ADD TO CART
                                             </div>
+                                        }
+                                        customClassname={
+                                            !sizeSelected && activeDisabledBtn
                                         }
                                         Large={true}
                                     />
@@ -176,6 +236,9 @@ const DetailProduct = () => {
                                         <div className={btnBuyNow}>
                                             <BsCart3 /> BUY NOW
                                         </div>
+                                    }
+                                    customClassname={
+                                        !sizeSelected && activeDisabledBtn
                                     }
                                     Large={true}
                                 />

@@ -7,6 +7,7 @@ const Button = ({
     isPrimary = true,
     medium = false,
     Large = false,
+    customClassname = false,
     ...props
 }) => {
     const { btn, primaryBtn, secondaryBtn, btnLarge, btnMedium } = styles;
@@ -17,6 +18,7 @@ const Button = ({
                 [btnMedium]: medium,
                 [primaryBtn]: isPrimary, //sẽ ăn class này khi isPrimary là true
                 [secondaryBtn]: !isPrimary, //sẽ ăn class này khi isPrimary là false
+                [customClassname]: customClassname,
             })}
             {...props}
         >
