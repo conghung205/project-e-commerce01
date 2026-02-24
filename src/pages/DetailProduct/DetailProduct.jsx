@@ -15,8 +15,9 @@ import SliderCommon from "@components/SliderCommon/SliderCommon";
 import ReactImageMagnifier from "simple-image-magnifier/react";
 import cls from "classnames";
 import { getDetailProduct, getRelatedProduct } from "@/apis/productsService";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingTextComon from "@components/LoadingTextCommon/LoadingTextComon";
+import { toast } from "react-toastify";
 
 const INCREMENT = "increment";
 const DECREMENT = "decrement";
@@ -53,6 +54,7 @@ const DetailProduct = () => {
         clear,
         activeDisabledBtn,
         loading,
+        emptyData,
     } = styles;
 
     const [menuSelected, setMenuSelected] = useState(null);
@@ -62,6 +64,7 @@ const DetailProduct = () => {
     const [relatedData, setRelatedData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const param = useParams();
+    const navigate = useNavigate();
 
     const dataAccordionMenu = [
         {
@@ -125,7 +128,8 @@ const DetailProduct = () => {
             setData(data);
             setIsLoading(false);
         } catch (error) {
-            console.log(error);
+            toast.error("Có lỗi khi tải dữ liệu");
+            setData();
             setIsLoading(false);
         }
     };
@@ -139,7 +143,8 @@ const DetailProduct = () => {
             setRelatedData(data);
             setIsLoading(false);
         } catch (error) {
-            console.log(error);
+            toast.error("Có lỗi khi tải dữ liệu");
+            setRelatedData([]);
             setIsLoading(false);
         }
     };
@@ -169,162 +174,210 @@ const DetailProduct = () => {
                             <LoadingTextComon />
                         </div>
                     ) : (
-                        <div className={contentSection}>
-                            <div className={imageBox}>
-                                {data?.images.map((src) => {
-                                    return handleRenderZoomImage(src);
-                                })}
-                            </div>
-                            <div className={contentBox}>
-                                <h1 className={title}>{data?.name}</h1>
-                                <p className={priceProduct}>${data?.price}</p>
-                                <p className={desc}>{data?.description}</p>
+                        <>
+                            {!data ? (
+                                <div className={emptyData}>
+                                    <p>No Result!</p>
+                                    <div>
+                                        <Button
+                                            content={"Back to Our Shop"}
+                                            onClick={() => navigate("/shop")}
+                                        />
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className={contentSection}>
+                                    <div className={imageBox}>
+                                        {data?.images.map((src) => {
+                                            return handleRenderZoomImage(src);
+                                        })}
+                                    </div>
+                                    <div className={contentBox}>
+                                        <h1 className={title}>{data?.name}</h1>
+                                        <p className={priceProduct}>
+                                            ${data?.price}
+                                        </p>
+                                        <p className={desc}>
+                                            {data?.description}
+                                        </p>
 
-                                <div className={containerSize}>
-                                    Size: {sizeSelected}
-                                    <div className={boxSize}>
-                                        {data?.size.map((item, index) => {
-                                            return (
+                                        <div className={containerSize}>
+                                            Size: {sizeSelected}
+                                            <div className={boxSize}>
+                                                {data?.size.map(
+                                                    (item, index) => {
+                                                        return (
+                                                            <div
+                                                                key={index}
+                                                                className={cls(
+                                                                    size,
+                                                                    {
+                                                                        [active]:
+                                                                            item.name ===
+                                                                            sizeSelected,
+                                                                    },
+                                                                )}
+                                                                onClick={() =>
+                                                                    handleSelectSize(
+                                                                        item.name,
+                                                                    )
+                                                                }
+                                                            >
+                                                                {item.name}
+                                                            </div>
+                                                        );
+                                                    },
+                                                )}
+                                            </div>
+                                            {sizeSelected && (
+                                                <p
+                                                    className={clear}
+                                                    onClick={handleClearSize}
+                                                >
+                                                    Clear
+                                                </p>
+                                            )}
+                                        </div>
+
+                                        <div className={addToCartSection}>
+                                            <div className={incremenAmount}>
                                                 <div
-                                                    key={index}
-                                                    className={cls(size, {
-                                                        [active]:
-                                                            item.name ===
-                                                            sizeSelected,
-                                                    })}
                                                     onClick={() =>
-                                                        handleSelectSize(
-                                                            item.name,
+                                                        handleSetQuantity(
+                                                            DECREMENT,
                                                         )
                                                     }
                                                 >
-                                                    {item.name}
+                                                    -
                                                 </div>
-                                            );
-                                        })}
-                                    </div>
-                                    {sizeSelected && (
-                                        <p
-                                            className={clear}
-                                            onClick={handleClearSize}
-                                        >
-                                            Clear
-                                        </p>
-                                    )}
-                                </div>
-
-                                <div className={addToCartSection}>
-                                    <div className={incremenAmount}>
-                                        <div
-                                            onClick={() =>
-                                                handleSetQuantity(DECREMENT)
-                                            }
-                                        >
-                                            -
-                                        </div>
-                                        <div className={quantityCss}>
-                                            {quantity}
-                                        </div>
-                                        <div
-                                            onClick={() =>
-                                                handleSetQuantity(INCREMENT)
-                                            }
-                                        >
-                                            +
-                                        </div>
-                                    </div>
-
-                                    <div className={boxAddTocart}>
-                                        <Button
-                                            content={
-                                                <div className={btnAddTocart}>
-                                                    <BsCart3 /> ADD TO CART
+                                                <div className={quantityCss}>
+                                                    {quantity}
                                                 </div>
-                                            }
-                                            customClassname={
-                                                !sizeSelected &&
-                                                activeDisabledBtn
-                                            }
-                                            Large={true}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className={orSection}>
-                                    <div className={line}></div>
-                                    <div className={textOr}>OR</div>
-                                    <div className={line}></div>
-                                </div>
-
-                                <div className={buyNowSection}>
-                                    <Button
-                                        content={
-                                            <div className={btnBuyNow}>
-                                                <BsCart3 /> BUY NOW
+                                                <div
+                                                    onClick={() =>
+                                                        handleSetQuantity(
+                                                            INCREMENT,
+                                                        )
+                                                    }
+                                                >
+                                                    +
+                                                </div>
                                             </div>
-                                        }
-                                        customClassname={
-                                            !sizeSelected && activeDisabledBtn
-                                        }
-                                        Large={true}
-                                    />
-                                </div>
 
-                                <div className={addFunc}>
-                                    <div>
-                                        <LuHeart style={{ fontSize: "20px" }} />
-                                    </div>
-                                    <div>
-                                        <TfiReload
-                                            style={{ fontSize: "20px" }}
-                                        />
-                                    </div>
-                                </div>
+                                            <div className={boxAddTocart}>
+                                                <Button
+                                                    content={
+                                                        <div
+                                                            className={
+                                                                btnAddTocart
+                                                            }
+                                                        >
+                                                            <BsCart3 /> ADD TO
+                                                            CART
+                                                        </div>
+                                                    }
+                                                    customClassname={
+                                                        !sizeSelected &&
+                                                        activeDisabledBtn
+                                                    }
+                                                    Large={true}
+                                                />
+                                            </div>
+                                        </div>
 
-                                <div>
-                                    <PaymentMethods />
-                                </div>
+                                        <div className={orSection}>
+                                            <div className={line}></div>
+                                            <div className={textOr}>OR</div>
+                                            <div className={line}></div>
+                                        </div>
 
-                                <div className={info}>
-                                    <div>
-                                        Brand: <span>Brand 03</span>
-                                    </div>
-                                    <div>
-                                        SKU: <span>87654</span>
-                                    </div>
-                                    <div>
-                                        Category: <span>Men</span>
-                                    </div>
-                                </div>
+                                        <div className={buyNowSection}>
+                                            <Button
+                                                content={
+                                                    <div className={btnBuyNow}>
+                                                        <BsCart3 /> BUY NOW
+                                                    </div>
+                                                }
+                                                customClassname={
+                                                    !sizeSelected &&
+                                                    activeDisabledBtn
+                                                }
+                                                Large={true}
+                                            />
+                                        </div>
 
-                                <div className={accordionMenu}>
-                                    {dataAccordionMenu.map((item, index) => (
-                                        <AccordionMenu
-                                            key={index}
-                                            titleMenu={item.titleMenu}
-                                            contentJsx={item.content}
-                                            onClick={() =>
-                                                handleSetMenuSelected(item.id)
-                                            }
-                                            isSelected={
-                                                menuSelected === item.id
-                                            }
-                                        />
-                                    ))}
+                                        <div className={addFunc}>
+                                            <div>
+                                                <LuHeart
+                                                    style={{ fontSize: "20px" }}
+                                                />
+                                            </div>
+                                            <div>
+                                                <TfiReload
+                                                    style={{ fontSize: "20px" }}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <PaymentMethods />
+                                        </div>
+
+                                        <div className={info}>
+                                            <div>
+                                                Brand: <span>Brand 03</span>
+                                            </div>
+                                            <div>
+                                                SKU: <span>87654</span>
+                                            </div>
+                                            <div>
+                                                Category: <span>Men</span>
+                                            </div>
+                                        </div>
+
+                                        <div className={accordionMenu}>
+                                            {dataAccordionMenu.map(
+                                                (item, index) => (
+                                                    <AccordionMenu
+                                                        key={index}
+                                                        titleMenu={
+                                                            item.titleMenu
+                                                        }
+                                                        contentJsx={
+                                                            item.content
+                                                        }
+                                                        onClick={() =>
+                                                            handleSetMenuSelected(
+                                                                item.id,
+                                                            )
+                                                        }
+                                                        isSelected={
+                                                            menuSelected ===
+                                                            item.id
+                                                        }
+                                                    />
+                                                ),
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            )}
+                        </>
                     )}
 
-                    <div className={relatedSection}>
-                        <h2 className={relatedTitle}>Related Products</h2>
+                    {relatedData.length ? (
+                        <div className={relatedSection}>
+                            <h2 className={relatedTitle}>Related Products</h2>
 
-                        <SliderCommon
-                            data={relatedData}
-                            isProductItem
-                            showItem={4}
-                        />
-                    </div>
+                            <SliderCommon
+                                data={relatedData}
+                                isProductItem
+                                showItem={4}
+                            />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                 </MainLayout>
             </div>
 
