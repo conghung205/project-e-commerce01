@@ -3,7 +3,6 @@
 
 .container{
     padding-top: 83px;
-    height: 2000px;
 
     .navigateSection{
        @include flex_box_custom(space-between, center, 0);
@@ -15,6 +14,7 @@
     .contentSection{
         @include flex_box_custom(space-between, flex-start, 30px);
         margin-top: 10px;
+        margin-bottom: 80px;
 
         .imageBox{
             @include flex_box_custom(space-between, unset, 10px);
@@ -185,6 +185,18 @@
             
         }
     }
+
+    .relatedSection{
+        padding: 15px;
+
+        .relatedTitle{
+            margin-bottom: 12px;
+            font-size: 24px;
+            text-align: center;
+            color: $primary_color;
+            font-weight: 400;
+        }
+    }
 }
 
 .containerInfo{
@@ -348,3 +360,4 @@
         }
     }
 }
+

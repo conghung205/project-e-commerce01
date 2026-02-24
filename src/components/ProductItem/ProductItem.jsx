@@ -21,6 +21,7 @@ const ProductItem = ({
     price,
     details,
     isHomePage = true,
+    slideItem = false,
 }) => {
     const {
         container,
@@ -116,9 +117,16 @@ const ProductItem = ({
         }
     }, [isHomePage, ourShopStore?.isShowGrid]);
 
+    useEffect(() => {
+        if (slideItem) {
+            setIsShowGrid(true);
+        }
+    }, [slideItem]);
+
     return (
         <div className={isShowGrid ? "" : container}>
             {/* box img */}
+
             <div
                 className={cls(boxImg, {
                     [largImg]: !isShowGrid,

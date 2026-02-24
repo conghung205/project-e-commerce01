@@ -10,6 +10,8 @@ import PaymentMethods from "@components/PaymentMethods/PaymentMethods";
 import AccordionMenu from "@components/AccordionMenu/AccordionMenu";
 import Infomation from "@pages/DetailProduct/components/Infomation";
 import Review from "@pages/DetailProduct/components/Review";
+import Footer from "@components/Footer/Footer";
+import SliderCommon from "@components/SliderCommon/SliderCommon";
 
 const DetailProduct = () => {
     const {
@@ -37,6 +39,8 @@ const DetailProduct = () => {
         addFunc,
         info,
         accordionMenu,
+        relatedSection,
+        relatedTitle,
     } = styles;
 
     const [menuSelected, setMenuSelected] = useState(null);
@@ -59,6 +63,39 @@ const DetailProduct = () => {
             return prev === id ? null : id;
         });
     };
+
+    const tempDataSlider = [
+        {
+            image: "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-1.2-min-285x340.jpg",
+            name: "Test Product 1",
+            price: "1000",
+            size: [{ name: "L" }, { name: "S" }, { name: "M" }],
+        },
+        {
+            image: "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-1.2-min-285x340.jpg",
+            name: "Test Product 1",
+            price: "1000",
+            size: [{ name: "L" }, { name: "S" }, { name: "M" }],
+        },
+        {
+            image: "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-1.2-min-285x340.jpg",
+            name: "Test Product 1",
+            price: "1000",
+            size: [{ name: "L" }, { name: "S" }, { name: "M" }],
+        },
+        {
+            image: "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-1.2-min-285x340.jpg",
+            name: "Test Product 1",
+            price: "1000",
+            size: [{ name: "L" }, { name: "S" }, { name: "M" }],
+        },
+        {
+            image: "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-1.2-min-285x340.jpg",
+            name: "Test Product 1",
+            price: "1000",
+            size: [{ name: "L" }, { name: "S" }, { name: "M" }],
+        },
+    ];
 
     return (
         <div>
@@ -184,8 +221,20 @@ const DetailProduct = () => {
                             </div>
                         </div>
                     </div>
+
+                    <div className={relatedSection}>
+                        <h2 className={relatedTitle}>Related Products</h2>
+
+                        <SliderCommon
+                            data={tempDataSlider}
+                            isProductItem
+                            showItem={4}
+                        />
+                    </div>
                 </MainLayout>
             </div>
+
+            <Footer />
         </div>
     );
 };
