@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@components/Header/Header";
 import MainLayout from "@components/Layout/Layout";
 import styles from "./styles.module.scss";
@@ -14,6 +14,8 @@ import Footer from "@components/Footer/Footer";
 import SliderCommon from "@components/SliderCommon/SliderCommon";
 import ReactImageMagnifier from "simple-image-magnifier/react";
 import cls from "classnames";
+import { getDetailProduct } from "@/apis/productsService";
+import { useParams } from "react-router-dom";
 
 const tempDataSize = [
     {
@@ -29,6 +31,9 @@ const tempDataSize = [
         amount: "1000",
     },
 ];
+
+const INCREMENT = "increment";
+const DECREMENT = "decrement";
 
 const DetailProduct = () => {
     const {
@@ -47,7 +52,7 @@ const DetailProduct = () => {
         boxAddTocart,
         btnAddTocart,
         incremenAmount,
-        quantity,
+        quantityCss,
         orSection,
         textOr,
         line,
@@ -65,6 +70,10 @@ const DetailProduct = () => {
 
     const [menuSelected, setMenuSelected] = useState(null);
     const [sizeSelected, setSizeSelected] = useState("");
+    const [quantity, setQuantity] = useState(1);
+    const [data, setData] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+    const param = useParams();
 
     const dataAccordionMenu = [
         {
@@ -145,6 +154,35 @@ const DetailProduct = () => {
         setSizeSelected("");
     };
 
+    const handleSetQuantity = (type) => {
+        if (quantity < 1) return;
+        setQuantity((prev) =>
+            type === INCREMENT ? (prev += 1) : quantity === 1 ? 1 : (prev -= 1),
+        );
+    };
+
+    const fetchDataDetail = async (id) => {
+        setIsLoading(true);
+
+        try {
+            const data = await getDetailProduct(id);
+
+            setData(data);
+            setIsLoading(false);
+        } catch (error) {
+            console.log(error);
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (param.id) {
+            fetchDataDetail(param.id);
+        }
+    }, [param]);
+
+    console.log(data);
+
     return (
         <div>
             <Header />
@@ -204,9 +242,23 @@ const DetailProduct = () => {
 
                             <div className={addToCartSection}>
                                 <div className={incremenAmount}>
-                                    <div>-</div>
-                                    <div className={quantity}>1</div>
-                                    <div>+</div>
+                                    <div
+                                        onClick={() =>
+                                            handleSetQuantity(DECREMENT)
+                                        }
+                                    >
+                                        -
+                                    </div>
+                                    <div className={quantityCss}>
+                                        {quantity}
+                                    </div>
+                                    <div
+                                        onClick={() =>
+                                            handleSetQuantity(INCREMENT)
+                                        }
+                                    >
+                                        +
+                                    </div>
                                 </div>
 
                                 <div className={boxAddTocart}>

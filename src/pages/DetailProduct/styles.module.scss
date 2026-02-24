@@ -113,7 +113,7 @@
                         }
                     }
 
-                    .quantity{
+                    .quantityCss{
                         @include flex_box_custom(center, center, 0);
                         border-left: none;
                         border-right: none;

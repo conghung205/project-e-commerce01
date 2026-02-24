@@ -7,14 +7,30 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import ProductItem from "@components/ProductItem/ProductItem";
 
 const SliderCommon = ({ data, isProductItem = false, showItem = 1 }) => {
+    const NextArrow = ({ className, style, onClick }) => {
+        return (
+            <div className={className} style={style} onClick={onClick}>
+                <IoIosArrowForward />
+            </div>
+        );
+    };
+
+    const PrevArrow = ({ className, style, onClick }) => {
+        return (
+            <div className={className} style={style} onClick={onClick}>
+                <IoIosArrowBack />
+            </div>
+        );
+    };
+
     const settings = {
         dots: false,
         infinite: true,
         speed: 500,
         slidesToShow: showItem,
         slidesToScroll: 1,
-        nextArrow: <IoIosArrowForward />,
-        prevArrow: <IoIosArrowBack />,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
     };
 
     return (
@@ -22,7 +38,7 @@ const SliderCommon = ({ data, isProductItem = false, showItem = 1 }) => {
             <Slider {...settings}>
                 {data.map((item, index) => {
                     return (
-                        <>
+                        <div key={index}>
                             {isProductItem ? (
                                 <ProductItem
                                     src={item.image}
@@ -36,7 +52,7 @@ const SliderCommon = ({ data, isProductItem = false, showItem = 1 }) => {
                             ) : (
                                 <img key={index} src={item} alt="" />
                             )}
-                        </>
+                        </div>
                     );
                 })}
             </Slider>
