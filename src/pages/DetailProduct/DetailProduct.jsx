@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "@components/Header/Header";
 import MainLayout from "@components/Layout/Layout";
 import styles from "./styles.module.scss";
@@ -7,6 +7,9 @@ import { BsCart3 } from "react-icons/bs";
 import { LuHeart } from "react-icons/lu";
 import { TfiReload } from "react-icons/tfi";
 import PaymentMethods from "@components/PaymentMethods/PaymentMethods";
+import AccordionMenu from "@components/AccordionMenu/AccordionMenu";
+import Infomation from "@pages/DetailProduct/components/Infomation";
+import Review from "@pages/DetailProduct/components/Review";
 
 const DetailProduct = () => {
     const {
@@ -33,16 +36,29 @@ const DetailProduct = () => {
         btnBuyNow,
         addFunc,
         info,
+        accordionMenu,
     } = styles;
 
-    const srcMethods = [
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/visa.jpeg",
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/master-card.jpeg",
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/paypal.jpeg",
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/american-express.jpeg",
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/maestro.jpeg",
-        "https://xstore.8theme.com/elementor2/marseille04/wp-content/themes/xstore/images/woocommerce/payment-icons/bitcoin.jpeg",
+    const [menuSelected, setMenuSelected] = useState(null);
+
+    const dataAccordionMenu = [
+        {
+            id: 1,
+            titleMenu: "ADDITIONAL INFOMATION",
+            content: <Infomation />,
+        },
+        {
+            id: 2,
+            titleMenu: "REVIEWS (0)",
+            content: <Review />,
+        },
     ];
+
+    const handleSetMenuSelected = (id) => {
+        setMenuSelected((prev) => {
+            return prev === id ? null : id;
+        });
+    };
 
     return (
         <div>
@@ -151,6 +167,20 @@ const DetailProduct = () => {
                                 <div>
                                     Category: <span>Men</span>
                                 </div>
+                            </div>
+
+                            <div className={accordionMenu}>
+                                {dataAccordionMenu.map((item, index) => (
+                                    <AccordionMenu
+                                        key={index}
+                                        titleMenu={item.titleMenu}
+                                        contentJsx={item.content}
+                                        onClick={() =>
+                                            handleSetMenuSelected(item.id)
+                                        }
+                                        isSelected={menuSelected === item.id}
+                                    />
+                                ))}
                             </div>
                         </div>
                     </div>

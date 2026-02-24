@@ -3,6 +3,7 @@
 
 .container{
     padding-top: 83px;
+    height: 2000px;
 
     .navigateSection{
        @include flex_box_custom(space-between, center, 0);
@@ -177,7 +178,173 @@
                     }
                 }
             }
+
+            .accordionMenu{
+                margin-top: 30px;
+            }
             
+        }
+    }
+}
+
+.containerInfo{
+    .itemInfo{
+        @include flex_box_custom(space-between, center, 0);
+
+        border-bottom: 1px solid #e1e1e1;
+
+        div{
+            flex: 1;
+            padding: 15px 0;
+        }
+
+        .TitleInfo{
+            font-size: 16px;
+            color: $seconddary_color;
+        }
+        .contentInfo{
+            font-size: 15px;
+            color: $thr_color;
+        }
+    }
+
+    div:last-child{
+        border-bottom: none;
+        
+        div{
+            padding: 15px 0 0;
+        }
+            
+    }
+
+}
+
+.containerReview{
+
+    .reviewTitle{
+        padding-bottom: 14px;
+        margin-bottom: 14px;
+        font-size: 14px;
+        color: $four_color;
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+    .noReview{
+        font-size: 14px;
+        margin-bottom: 20px;
+        color: $thr_color;
+    }
+
+    .reviewFormWrapper{
+        padding-top: 30px;
+
+        .replyTitle{
+            font-size: 14px;
+            color: $primary_color;
+            padding-bottom: 14px;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .emailNotes{
+            font-size: 14px;
+            color: $thr_color;
+            margin-bottom: 20px;
+        }
+
+        .formRating{
+            margin-bottom: 20px;
+        }
+
+        .formReview,
+        .formName,
+        .formEmail
+        {
+            margin-bottom: 20px;
+        }
+
+        .consent{
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+
+            input{
+                margin-top: -12px;
+            }
+
+            p{
+                font-size: 16px;
+                color: $thr_color;
+            }
+        }
+
+        .btnSubmit{
+            button{
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+.formItem{
+    display: flex;
+    flex-direction: column;
+
+    label{
+        margin-bottom: 5px;
+        color: $thr_color;
+        font-size: 16px;
+
+        span{
+            color: #c62828;
+        }
+    }
+
+    input{
+        width: 100%;
+        height: 37px;
+        border: 1px solid #e1e1e1;
+        line-height: 28px;
+        outline: none;
+        padding: 0 17px;
+        color: $four_color;
+        font-size: 16px;
+
+        &:focus{
+            border: 1px solid $seconddary_color;
+        }
+
+        &::selection{
+            background-color: #e1e1e1;
+        }
+    }
+
+    textarea{
+        height: 222px;
+        padding: 17px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: $four_color;
+        overflow: auto;
+        border: 1px solid #e1e1e1;
+
+        &:focus{
+            border: 1px solid $seconddary_color;
+            outline: none;
+        }
+
+        &::selection{
+            background-color: #e1e1e1;
+        }
+    }
+
+    .boxItemStar{
+        display: flex;
+        gap: 20px;
+
+        div{
+            cursor: pointer;
         }
     }
 }
