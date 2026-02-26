@@ -6,13 +6,13 @@ import cls from "classnames";
 import Cookies from "js-cookie";
 import { SideBarContext } from "@/contexts/SideBarProvider";
 import { ToastContext } from "@/contexts/ToastProvider";
-import { addProductToCart } from "@/apis/cartService";
 import LoadingTextComon from "@components/LoadingTextCommon/LoadingTextComon";
 import { BsCart3 } from "react-icons/bs";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { TfiReload } from "react-icons/tfi";
 import { IoEyeOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { handleAddProductToCartCommon } from "@/utils/helper";
 
 const ProductItem = ({
     src,
@@ -60,41 +60,17 @@ const ProductItem = ({
     };
 
     const handleAddToCart = () => {
-        if (!userId) {
-            setIsOpen(true);
-            setType("login");
-            toast.warning("Please login to add product to cart");
-            return;
-        }
-
-        if (!sizeChoose) {
-            toast.warning("Please choose size!");
-            return;
-        }
-
-        const data = {
+        handleAddProductToCartCommon(
             userId,
-            productId: details._id,
-            quantity: 1,
-            size: sizeChoose,
-        };
-
-        setIsLoading(true);
-
-        addProductToCart(data)
-            .then((res) => {
-                setIsOpen(true);
-                setType("cart");
-                toast.success("Add product to cart successfully!");
-                setIsLoading(false);
-                handleGetListProductCart(userId, "cart");
-            })
-            .catch((err) => {
-                console.log(err);
-                toast.error("Add product to cart failed!");
-
-                setIsLoading(false);
-            });
+            setIsOpen,
+            setType,
+            toast,
+            sizeChoose,
+            details._id,
+            1,
+            setIsLoading,
+            handleGetListProductCart,
+        );
     };
 
     const handleShowDetailProductSideBar = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "@components/Header/Header";
 import MainLayout from "@components/Layout/Layout";
 import styles from "./styles.module.scss";
@@ -18,6 +18,10 @@ import { getDetailProduct, getRelatedProduct } from "@/apis/productsService";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingTextComon from "@components/LoadingTextCommon/LoadingTextComon";
 import { toast } from "react-toastify";
+import { handleAddProductToCartCommon } from "@/utils/helper";
+import { SideBarContext } from "@/contexts/SideBarProvider";
+import { ToastContext } from "@/contexts/ToastProvider";
+import Cookies from "js-cookie";
 
 const INCREMENT = "increment";
 const DECREMENT = "decrement";
@@ -65,6 +69,11 @@ const DetailProduct = () => {
     const [isLoading, setIsLoading] = useState(false);
     const param = useParams();
     const navigate = useNavigate();
+    const { setIsOpen, setType, handleGetListProductCart } =
+        useContext(SideBarContext);
+    const { toast } = useContext(ToastContext);
+    const userId = Cookies.get("userId");
+    const [isLoadingBtn, setIsLoadingBtn] = useState(false);
 
     const dataAccordionMenu = [
         {
@@ -77,13 +86,6 @@ const DetailProduct = () => {
             titleMenu: "REVIEWS (0)",
             content: <Review />,
         },
-    ];
-
-    const dataImageDetail = [
-        "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.2-min.jpg",
-        "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.2-min.jpg",
-        "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.2-min.jpg",
-        "https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-17.2-min.jpg",
     ];
 
     const handleRenderZoomImage = (src) => {
@@ -147,6 +149,20 @@ const DetailProduct = () => {
             setRelatedData([]);
             setIsLoading(false);
         }
+    };
+
+    const handleAdd = () => {
+        handleAddProductToCartCommon(
+            userId,
+            setIsOpen,
+            setType,
+            toast,
+            sizeSelected,
+            param.id,
+            quantity,
+            setIsLoadingBtn,
+            handleGetListProductCart,
+        );
     };
 
     useEffect(() => {
@@ -267,20 +283,25 @@ const DetailProduct = () => {
                                             <div className={boxAddTocart}>
                                                 <Button
                                                     content={
-                                                        <div
-                                                            className={
-                                                                btnAddTocart
-                                                            }
-                                                        >
-                                                            <BsCart3 /> ADD TO
-                                                            CART
-                                                        </div>
+                                                        isLoadingBtn ? (
+                                                            <LoadingTextComon />
+                                                        ) : (
+                                                            <div
+                                                                className={
+                                                                    btnAddTocart
+                                                                }
+                                                            >
+                                                                <BsCart3 /> ADD
+                                                                TO CART
+                                                            </div>
+                                                        )
                                                     }
                                                     customClassname={
                                                         !sizeSelected &&
                                                         activeDisabledBtn
                                                     }
                                                     Large={true}
+                                                    onClick={handleAdd}
                                                 />
                                             </div>
                                         </div>
