@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import styles from "../../styles.module.scss";
 import CartTable from "@pages/Cart/components/Contents/CartTable";
 import CartSummary from "@pages/Cart/components/Contents/CartSummary";
@@ -10,6 +10,7 @@ import { deleteItem } from "@/apis/cartService";
 import { deleteCart } from "@/apis/cartService";
 import { BsCart3 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import { getCart } from "@/apis/cartService";
 
 const Contents = () => {
     const {
@@ -33,6 +34,7 @@ const Contents = () => {
         isLoading,
         setIsLoading,
         userId,
+        setListProductCart,
     } = useContext(SideBarContext);
 
     const navigate = useNavigate();
@@ -78,6 +80,20 @@ const Contents = () => {
     const handleNavigateToShop = () => {
         navigate("/shop");
     };
+
+    useEffect(() => {
+        if (userId) {
+            getCart(userId)
+                .then((res) => {
+                    setListProductCart(res.data.data);
+                    setIsLoading(false);
+                })
+                .catch((err) => {
+                    setListProductCart([]);
+                    setIsLoading(false);
+                });
+        }
+    }, []);
 
     return (
         <>

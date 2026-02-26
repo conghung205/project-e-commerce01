@@ -17,11 +17,11 @@ import cls from "classnames";
 import { getDetailProduct, getRelatedProduct } from "@/apis/productsService";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingTextComon from "@components/LoadingTextCommon/LoadingTextComon";
-import { toast } from "react-toastify";
 import { handleAddProductToCartCommon } from "@/utils/helper";
 import { SideBarContext } from "@/contexts/SideBarProvider";
 import { ToastContext } from "@/contexts/ToastProvider";
 import Cookies from "js-cookie";
+import { addProductToCart } from "@/apis/cartService";
 
 const INCREMENT = "increment";
 const DECREMENT = "decrement";
@@ -74,6 +74,7 @@ const DetailProduct = () => {
     const { toast } = useContext(ToastContext);
     const userId = Cookies.get("userId");
     const [isLoadingBtn, setIsLoadingBtn] = useState(false);
+    const [isLoadingBtnBuyNow, setIsLoadingBtnBuyNow] = useState(false);
 
     const dataAccordionMenu = [
         {
@@ -163,6 +164,30 @@ const DetailProduct = () => {
             setIsLoadingBtn,
             handleGetListProductCart,
         );
+    };
+
+    const handleBuyNow = () => {
+        const data = {
+            userId,
+            productId: param.id,
+            quantity,
+            size: sizeSelected,
+        };
+
+        setIsLoadingBtnBuyNow(true);
+        addProductToCart(data)
+            .then((res) => {
+                navigate("/cart");
+
+                toast.success("Add product to cart successfully!");
+                setIsLoadingBtnBuyNow(false);
+            })
+            .catch((err) => {
+                console.log(err);
+                toast.error("Add product to cart failed!");
+
+                setIsLoadingBtnBuyNow(false);
+            });
     };
 
     useEffect(() => {
@@ -315,10 +340,19 @@ const DetailProduct = () => {
                                         <div className={buyNowSection}>
                                             <Button
                                                 content={
-                                                    <div className={btnBuyNow}>
-                                                        <BsCart3 /> BUY NOW
-                                                    </div>
+                                                    isLoadingBtnBuyNow ? (
+                                                        <LoadingTextComon />
+                                                    ) : (
+                                                        <div
+                                                            className={
+                                                                btnBuyNow
+                                                            }
+                                                        >
+                                                            <BsCart3 /> BUY NOW
+                                                        </div>
+                                                    )
                                                 }
+                                                onClick={handleBuyNow}
                                                 customClassname={
                                                     !sizeSelected &&
                                                     activeDisabledBtn

@@ -10,6 +10,7 @@ import useScrollHandling from "@/hooks/useScrollHandling";
 import classNames from "classnames";
 import { SideBarContext } from "@/contexts/SideBarProvider";
 import cls from "classnames";
+import { StoreContext } from "@/contexts/StoreProvider";
 
 const Header = () => {
     const {
@@ -27,12 +28,32 @@ const Header = () => {
 
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFixedPosition] = useState(false);
-    const { setIsOpen, setType, listProductCart } = useContext(SideBarContext);
+    const {
+        setIsOpen,
+        setType,
+        listProductCart,
+        userId,
+        handleGetListProductCart,
+    } = useContext(SideBarContext);
+
+    const { userInfo } = useContext(StoreContext);
+    console.log(userInfo);
 
     const handleOpenSideBar = (type) => {
         setIsOpen(true);
         setType(type);
     };
+
+    const handleOpenCartSideBar = () => {
+        handleGetListProductCart(userId, "cart");
+        handleOpenSideBar("cart");
+    };
+
+    const totalItemCart = listProductCart.length
+        ? listProductCart.reduce((acc, item) => {
+              return (acc += item.quantity);
+          }, 0)
+        : 0;
 
     useEffect(() => {
         setFixedPosition(scrollPosition >= 100);
@@ -106,7 +127,7 @@ const Header = () => {
 
                         <div
                             className={cls(icon, boxCart)}
-                            onClick={() => handleOpenSideBar("cart")}
+                            onClick={() => handleOpenCartSideBar()}
                         >
                             <BsCart3
                                 style={{
@@ -115,7 +136,7 @@ const Header = () => {
                             />
 
                             <div className={quantity}>
-                                {listProductCart.length}
+                                {totalItemCart || userInfo?.amountCart || 0}
                             </div>
                         </div>
                     </div>
