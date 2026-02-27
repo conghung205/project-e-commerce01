@@ -12,7 +12,7 @@ import { BsCart3 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { getCart } from "@/apis/cartService";
 
-const Contents = () => {
+const ShoppingCart = () => {
     const {
         containerContent,
         containerBoxLeft,
@@ -159,4 +159,4 @@ const Contents = () => {
     );
 };
 
-export default Contents;
+export default ShoppingCart;
