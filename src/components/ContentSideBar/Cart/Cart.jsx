@@ -16,12 +16,10 @@ const Cart = () => {
         total,
         boxBtn,
         headerCart,
-        containerListProductCart,
         overlayLoading,
         isEmpty,
         boxEmpty,
         containerListItem,
-        loading,
     } = styles;
 
     const { listProductCart, isLoading, setIsOpen } =

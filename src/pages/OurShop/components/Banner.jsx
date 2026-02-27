@@ -5,7 +5,7 @@ import Button from "@components/Button/Button";
 
 const Banner = () => {
     const { containerBanner, contentBox, title, countDownBox } = styles;
-    const targetDate = "2026-02-31T00:00:00";
+    const targetDate = "2027-02-31T00:00:00";
 
     return (
         <>

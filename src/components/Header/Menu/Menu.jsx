@@ -23,6 +23,9 @@ const Menu = ({ content, href }) => {
         if (content === "About Us") {
             navigate("/About-Us");
         }
+        if (content === "Home") {
+            navigate("/");
+        }
     };
 
     const handleRenderText = (content) => {

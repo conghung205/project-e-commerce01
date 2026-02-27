@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import styles from "../../styles.module.scss";
-import CartTable from "@pages/Cart/components/Contents/CartTable";
-import CartSummary from "@pages/Cart/components/Contents/CartSummary";
+import CartTable from "@pages/Cart/components/ShoppingCart/CartTable";
+import CartSummary from "@pages/Cart/components/ShoppingCart/CartSummary";
 import Button from "@components/Button/Button";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { SideBarContext } from "@/contexts/SideBarProvider";

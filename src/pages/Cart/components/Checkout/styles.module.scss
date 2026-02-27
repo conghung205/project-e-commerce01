@@ -1,0 +1,49 @@
+@import "@styles/variable.module.scss";
+
+
+.container{
+    padding: 15px;
+
+    .textCoupon{
+        font-size: 14px;
+        color: $four_color;
+
+        span{
+            opacity: 0.7;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .containerContent{
+        display: flex;
+        gap: 30px;
+        margin-top: 30px;
+
+        .checkoutTitle{
+            font-size: 14px;
+            color: $primary_color;
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .leftBody{
+            width: 60%;
+
+            .row{
+                margin-bottom: 20px;
+            }
+
+            .row2col{
+                display: flex;
+                gap: 20px;
+            }
+        }
+
+        .rightBody{
+
+        }
+    }
+}

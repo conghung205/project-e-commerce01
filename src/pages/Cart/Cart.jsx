@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "@components/Header/Header";
 import Footer from "@components/Footer/Footer";
 import Steps from "@pages/Cart/components/Steps/Steps";
-import ShoppingCart from "@pages/Cart/components/Contents/ShoppingCart";
+
 import styles from "./styles.module.scss";
 import MainLayout from "@components/Layout/Layout";
 import SteperProvider from "@/contexts/SteperProvider";
