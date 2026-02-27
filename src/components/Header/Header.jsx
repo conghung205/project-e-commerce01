@@ -37,7 +37,6 @@ const Header = () => {
     } = useContext(SideBarContext);
 
     const { userInfo } = useContext(StoreContext);
-    console.log(userInfo);
 
     const handleOpenSideBar = (type) => {
         setIsOpen(true);

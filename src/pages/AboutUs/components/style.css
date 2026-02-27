@@ -1,0 +1,15 @@
+
+.swiper-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.swiper-wrapper ~ .swiper-button-prev,
+.swiper-wrapper ~ .swiper-button-next {
+    color: #333;        
+    width: 20px;
+    height: 20px;
+    top: 34px;
+}
+

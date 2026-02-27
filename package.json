@@ -24,6 +24,7 @@
     "sass": "^1.94.2",
     "simple-image-magnifier": "^1.1.5",
     "slick-carousel": "^1.8.1",
+    "swiper": "^12.1.2",
     "yup": "^1.7.1"
   },
   "devDependencies": {
