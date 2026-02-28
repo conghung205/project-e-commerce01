@@ -19,12 +19,12 @@ const InputCustom = ({
             );
         } else {
             return (
-                <select>
-                    <option value="" selected disabled hidden>
+                <select {...register}>
+                    <option value="" defaultValue={""} disabled hidden>
                         {label}
                     </option>
                     {dataOptions.map((item, index) => (
-                        <option key={index} {...register}>
+                        <option key={index} value={item.value}>
                             {item.label}
                         </option>
                     ))}

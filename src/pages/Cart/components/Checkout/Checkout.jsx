@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputCustom from "@components/InputCommon2/Input";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
 import cls from "classnames";
+import axios from "axios";
+
+const CN_BASE = "https://countriesnow.space/api/v0.1";
 
 const Checkout = () => {
     const {
@@ -16,20 +19,9 @@ const Checkout = () => {
         row2col,
     } = styles;
 
-    const dataOptions = [
-        {
-            value: "1",
-            label: "option 1",
-        },
-        {
-            value: "2",
-            label: "option 2",
-        },
-        {
-            value: "3",
-            label: "option 3",
-        },
-    ];
+    const [countries, setCountries] = useState([]);
+    const [cities, setCities] = useState([]);
+    const [states, setStates] = useState([]);
 
     const {
         register,
@@ -38,6 +30,77 @@ const Checkout = () => {
         formState: { errors },
     } = useForm();
 
+    useEffect(() => {
+        axios.get(`${CN_BASE}/countries/iso`).then((res) => {
+            setCountries(
+                res.data.data.map((c) => {
+                    return {
+                        value: c.name,
+                        label: c.name,
+                    };
+                }),
+            );
+        });
+    }, []);
+
+    //Khi chọn quốc gia thì lấy thành phố
+    useEffect(() => {
+        if (!watch("country")) return;
+
+        if (
+            watch("country") === "Vietnam" &&
+            !localStorage.getItem("listCities")
+        ) {
+            axios
+                .get("https://provinces.open-api.vn/api/?depth=2")
+                .then((res) => {
+                    localStorage.setItem(
+                        "listCities",
+                        JSON.stringify(res.data),
+                    );
+
+                    setCities(
+                        res.data.map((item) => ({
+                            label: item.name,
+                            value: item.codename,
+                        })),
+                    );
+                });
+
+            return;
+        }
+
+        if (localStorage.getItem("listCities")) {
+            const data = JSON.parse(localStorage.getItem("listCities"));
+            setCities(
+                data.map((item) => ({
+                    label: item.name,
+                    value: item.codename,
+                })),
+            );
+        }
+    }, [watch("country")]);
+
+    //Khi chọn thành phố
+    useEffect(() => {
+        if (!watch("cities")) return;
+
+        if (localStorage.getItem("listCities")) {
+            const data = JSON.parse(localStorage.getItem("listCities"));
+
+            const statesCustom = data
+                .find((item) => item.codename === watch("cities"))
+                .districts.map((item) => ({
+                    label: item.name,
+                    value: item.codename,
+                }));
+
+            setStates(statesCustom);
+        }
+        console.log(watch("cities"));
+    }, [watch("cities")]);
+
+    console.log(states);
     return (
         <div className={container}>
             <p className={textCoupon}>
@@ -85,9 +148,33 @@ const Checkout = () => {
                             <InputCustom
                                 label={"Country / Region"}
                                 type={"select"}
-                                dataOptions={dataOptions}
+                                dataOptions={countries}
                                 isRequired
                                 register={register("country", {
+                                    required: true,
+                                })}
+                            />
+                        </div>
+
+                        <div className={row}>
+                            <InputCustom
+                                label={"Town / City"}
+                                type={"select"}
+                                dataOptions={cities}
+                                isRequired
+                                register={register("cities", {
+                                    required: true,
+                                })}
+                            />
+                        </div>
+
+                        <div className={row}>
+                            <InputCustom
+                                label={"State"}
+                                type={"select"}
+                                dataOptions={states}
+                                isRequired
+                                register={register("state", {
                                     required: true,
                                 })}
                             />
@@ -114,30 +201,6 @@ const Checkout = () => {
                                 }
                                 register={register("apartment")}
                                 isShowlabel={false}
-                            />
-                        </div>
-
-                        <div className={row}>
-                            <InputCustom
-                                label={"Town / City"}
-                                type={"text"}
-                                placeholder={"House number and street name"}
-                                isRequired
-                                register={register("city", {
-                                    required: true,
-                                })}
-                            />
-                        </div>
-
-                        <div className={row}>
-                            <InputCustom
-                                label={"Department"}
-                                type={"select"}
-                                dataOptions={dataOptions}
-                                isRequired
-                                register={register("department", {
-                                    required: true,
-                                })}
                             />
                         </div>
 
