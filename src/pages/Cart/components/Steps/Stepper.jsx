@@ -7,10 +7,13 @@ const Stepper = ({ number, content, isDisabled = false }) => {
     const { stepper, numberStep, textStep, isDisableNumber, isDisableText } =
         styles;
 
-    const { setCurrentStep } = useContext(SteperContext);
+    const { currentStep, setCurrentStep } = useContext(SteperContext);
 
     return (
-        <div className={stepper} onClick={() => setCurrentStep(number)}>
+        <div
+            className={stepper}
+            onClick={() => (number !== 3 ? setCurrentStep(number) : {})}
+        >
             <div
                 className={cls(numberStep, {
                     [isDisableNumber]: isDisabled,
