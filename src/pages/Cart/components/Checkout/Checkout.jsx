@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import InputCustom from "@components/InputCommon2/Input";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
 import cls from "classnames";
 import axios from "axios";
 import RightBody from "@pages/Cart/components/Checkout/RightBody";
+import { createOrder } from "@/apis/orderService";
+import { useNavigate } from "react-router-dom";
+import { SteperContext } from "@/contexts/SteperProvider";
 
 const CN_BASE = "https://countriesnow.space/api/v0.1";
 
@@ -22,6 +25,8 @@ const Checkout = () => {
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
     const [states, setStates] = useState([]);
+    const navigate = useNavigate();
+    const { setCurrentStep } = useContext(SteperContext);
 
     const {
         register,
@@ -33,6 +38,18 @@ const Checkout = () => {
 
     const handleExternalSubmit = () => {
         formRef.current.requestSubmit();
+    };
+
+    const handleOnSubmit = async (data) => {
+        try {
+            const res = await createOrder(data);
+            setCurrentStep(3);
+            navigate(
+                `?id=${res.data.data._id}&totalAmount=${res.data.data.totalAmount}`,
+            );
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {
@@ -113,10 +130,7 @@ const Checkout = () => {
                 <div className={leftBody}>
                     <p className={checkoutTitle}>billing details</p>
 
-                    <form
-                        ref={formRef}
-                        onSubmit={handleSubmit((data) => console.log(data))}
-                    >
+                    <form ref={formRef} onSubmit={handleSubmit(handleOnSubmit)}>
                         <div className={cls(row, row2col)}>
                             <InputCustom
                                 label={"First Name"}
@@ -196,7 +210,7 @@ const Checkout = () => {
                                 type={"text"}
                                 placeholder={"House number and street name"}
                                 isRequired
-                                register={register("streetAddress", {
+                                register={register("street", {
                                     required: true,
                                 })}
                                 isError={errors.streetAddress}
