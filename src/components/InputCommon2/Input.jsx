@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import cls from "classnames";
 
 const InputCustom = ({
     label,
@@ -9,17 +10,23 @@ const InputCustom = ({
     isRequired = false,
     register,
     isShowlabel = true,
+    isError = false,
 }) => {
-    const { container, labelCss } = styles;
+    const { container, labelCss, err, textErr } = styles;
 
     const renderInput = () => {
         if (type === "text") {
             return (
-                <input type="text" placeholder={placeholder} {...register} />
+                <input
+                    className={isError ? err : ""}
+                    type="text"
+                    placeholder={placeholder}
+                    {...register}
+                />
             );
         } else {
             return (
-                <select {...register}>
+                <select {...register} className={isError ? err : ""}>
                     <option value="" defaultValue={""} disabled hidden>
                         {label}
                     </option>
@@ -36,7 +43,7 @@ const InputCustom = ({
     return (
         <div className={container}>
             {isShowlabel && (
-                <label className={labelCss}>
+                <label className={cls(labelCss, { [textErr]: isError })}>
                     {label} {isRequired && <span> *</span>}
                 </label>
             )}

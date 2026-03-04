@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import InputCustom from "@components/InputCommon2/Input";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
 import cls from "classnames";
 import axios from "axios";
+import RightBody from "@pages/Cart/components/Checkout/RightBody";
 
 const CN_BASE = "https://countriesnow.space/api/v0.1";
 
@@ -14,7 +15,6 @@ const Checkout = () => {
         containerContent,
         leftBody,
         checkoutTitle,
-        rightBody,
         row,
         row2col,
     } = styles;
@@ -29,6 +29,11 @@ const Checkout = () => {
         watch,
         formState: { errors },
     } = useForm();
+    const formRef = useRef();
+
+    const handleExternalSubmit = () => {
+        formRef.current.requestSubmit();
+    };
 
     useEffect(() => {
         axios.get(`${CN_BASE}/countries/iso`).then((res) => {
@@ -97,10 +102,7 @@ const Checkout = () => {
 
             setStates(statesCustom);
         }
-        console.log(watch("cities"));
     }, [watch("cities")]);
-
-    console.log(states);
     return (
         <div className={container}>
             <p className={textCoupon}>
@@ -111,7 +113,10 @@ const Checkout = () => {
                 <div className={leftBody}>
                     <p className={checkoutTitle}>billing details</p>
 
-                    <form onSubmit={handleSubmit((data) => console.log(data))}>
+                    <form
+                        ref={formRef}
+                        onSubmit={handleSubmit((data) => console.log(data))}
+                    >
                         <div className={cls(row, row2col)}>
                             <InputCustom
                                 label={"First Name"}
@@ -122,6 +127,7 @@ const Checkout = () => {
                                     required: true,
                                     maxLength: 25,
                                 })}
+                                isError={errors.firstName}
                             />
                             <InputCustom
                                 label={"Last Name"}
@@ -132,6 +138,7 @@ const Checkout = () => {
                                     required: true,
                                     maxLength: 25,
                                 })}
+                                isError={errors.lastName}
                             />
                         </div>
 
@@ -153,6 +160,7 @@ const Checkout = () => {
                                 register={register("country", {
                                     required: true,
                                 })}
+                                isError={errors.country}
                             />
                         </div>
 
@@ -165,6 +173,7 @@ const Checkout = () => {
                                 register={register("cities", {
                                     required: true,
                                 })}
+                                isError={errors.cities}
                             />
                         </div>
 
@@ -177,6 +186,7 @@ const Checkout = () => {
                                 register={register("state", {
                                     required: true,
                                 })}
+                                isError={errors.state}
                             />
                         </div>
 
@@ -189,6 +199,7 @@ const Checkout = () => {
                                 register={register("streetAddress", {
                                     required: true,
                                 })}
+                                isError={errors.streetAddress}
                             />
                         </div>
 
@@ -213,6 +224,7 @@ const Checkout = () => {
                                 register={register("phone", {
                                     required: true,
                                 })}
+                                isError={errors.phone}
                             />
                         </div>
 
@@ -224,6 +236,7 @@ const Checkout = () => {
                                 register={register("zipCode", {
                                     required: true,
                                 })}
+                                isError={errors.zipCode}
                             />
                         </div>
 
@@ -236,15 +249,15 @@ const Checkout = () => {
                                 register={register("email", {
                                     required: true,
                                 })}
+                                isError={errors.email}
                             />
                         </div>
-
-                        <button type="submit">submit</button>
                     </form>
                 </div>
 
                 {/* Right Block */}
-                <div className={rightBody}></div>
+
+                <RightBody handleExternalSubmit={handleExternalSubmit} />
             </div>
         </div>
     );

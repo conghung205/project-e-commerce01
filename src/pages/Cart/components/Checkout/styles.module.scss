@@ -1,3 +1,4 @@
+@import "@styles/mixin.module.scss";
 @import "@styles/variable.module.scss";
 
 
@@ -30,7 +31,7 @@
         }
 
         .leftBody{
-            width: 60%;
+            width: 55%;
 
             .row{
                 margin-bottom: 20px;
@@ -43,7 +44,68 @@
         }
 
         .rightBody{
+            flex: 1;
+            
+            .container{
+                width: 100%;
+                border: 2px solid $four_color;
+                padding: 24px 28px 28px;
+            }
 
+            .rightContent{
+                margin-bottom: 40px;
+            }
+
+            .boxProduct{
+                padding-bottom: 12px;
+                max-height: 310px;
+                overflow: auto;
+            }
+
+            .boxSubTotal{
+                @include flex_box_custom(space-between, flex-start, 0);
+
+                padding-top: 15px;
+                padding-bottom: 12px;
+                border-top: 1px solid #e1e1e1;
+
+                .subTotal{
+                    font-size: 16px;
+                    color: $thr_color;
+                    // padding-bottom: 26px;
+                }
+
+                .priceSubTotal{
+                    font-size: 14px;
+                    color: $seconddary_color;
+                }
+
+            }
+
+            .boxTotal{
+                @include flex_box_custom(space-between, flex-start, 0);
+                padding: 15px 0 30px;
+                margin-bottom: 15px;
+                border-bottom: 1px solid #e1e1e1;
+
+                .priceTotal,
+                .totalCss{
+                    font-size: 20px;
+                    color: $four_color;
+                }
+
+            }
+
+            .payment{
+                @include flex_box_custom(unset, center, 10px);
+                margin-bottom: 10px;
+                font-size: 16px;
+                color: $four_color;
+            }
+
+            .btnOrder{
+                margin-top: 14px;
+            }
         }
     }
 }

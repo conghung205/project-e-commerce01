@@ -29,6 +29,13 @@
         }
     }
 
+    .err{
+        border-color: #ff0000;
+    }
+    .textErr{
+        color: #ff0000;
+    }
+    
     select{
         font-size: 14px;
         color: $seconddary_color;
