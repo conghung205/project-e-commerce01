@@ -1,11 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import styles from "../styles.module.scss";
 import CountdownTimer from "@components/CountdownTimer/CountdownTimer";
 import Button from "@components/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
     const { containerBanner, contentBox, title, countDownBox } = styles;
     const targetDate = "2027-02-31T00:00:00";
+
+    const navigate = useNavigate();
+
+    const handleNavigateToCart = () => {
+        navigate("/cart");
+    };
 
     return (
         <>
@@ -15,7 +22,10 @@ const Banner = () => {
                         <CountdownTimer targetDate={targetDate} />
                     </div>
                     <div className={title}>The Classic Make A Comeback</div>
-                    <Button content={"Buy now"} />
+                    <Button
+                        onClick={handleNavigateToCart}
+                        content={"Buy now"}
+                    />
                 </div>
             </div>
         </>

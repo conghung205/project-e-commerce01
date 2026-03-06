@@ -5,17 +5,21 @@
 .container{
     @include flex_box_custom (center, center, 0px);
 
-    background-image: url(../../assets/images/baner.jpeg);
+    background-image: url(../../assets/images/8.png);
     min-height: 750px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    position: relative;
+
 }
 
 .content{    
     @include flex_box_custom (center, center, 20px);
 
     flex-direction: column;
+
+    // z-index: 1;
 }
 
 .title{
@@ -26,8 +30,9 @@
 }
 
 .desc{
+    text-align: center;
     font-size: 16px;
-    color: $thr_color;
+    color: $four_color;
     margin: 0 0 20px 0;
     line-height: 25px;
 }

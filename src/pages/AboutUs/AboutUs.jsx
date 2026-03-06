@@ -94,7 +94,7 @@ const AboutUs = () => {
 
                     <Title
                         textSmall={"we try our best for you"}
-                        textLarge={"Welcome to the Marseille04 Shop"}
+                        textLarge={"Welcome to the NC/H Shop"}
                     />
 
                     <div className={containerContent}>

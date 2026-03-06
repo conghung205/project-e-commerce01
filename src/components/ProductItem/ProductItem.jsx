@@ -84,6 +84,10 @@ const ProductItem = ({
 
         navigate(path);
     };
+    const handleOpenCart = () => {
+        setIsOpen(true);
+        setType("cart");
+    };
 
     useEffect(() => {
         if (isHomePage) {
@@ -107,20 +111,19 @@ const ProductItem = ({
                 className={cls(boxImg, {
                     [largImg]: !isShowGrid,
                 })}
-                onClick={handleNavigateToDetail}
             >
                 <img src={src} alt="" />
-                <img src={prevSrc} alt="" className={showImgWhenHover} />
+                <img
+                    src={prevSrc}
+                    alt=""
+                    onClick={handleNavigateToDetail}
+                    className={showImgWhenHover}
+                />
                 <div className={showOptionWhenHover}>
-                    <div className={boxIcon}>
+                    <div onClick={handleOpenCart} className={boxIcon}>
                         <BsCart3 style={{ fontSize: "20px" }} />
                     </div>
-                    <div className={boxIcon}>
-                        <IoIosHeartEmpty style={{ fontSize: "20px" }} />
-                    </div>
-                    <div className={boxIcon}>
-                        <TfiReload />
-                    </div>
+
                     <div
                         className={boxIcon}
                         onClick={handleShowDetailProductSideBar}

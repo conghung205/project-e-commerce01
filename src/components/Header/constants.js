@@ -5,9 +5,9 @@ const dataBoxIcon = [
 ];
 
 const dataMenu = [
-    { content: "Home", href: "#" },
-    { content: "Our Shop", href: "#" },
-    { content: "About Us", href: "#" },
+    { content: "Home", href: "/" },
+    { content: "Our Shop", href: "/shop" },
+    { content: "About Us", href: "/About-Us" },
     { content: "Contacts", href: "#" },
     { content: "Search", href: "#" },
     { content: "Sign In", href: "#" },

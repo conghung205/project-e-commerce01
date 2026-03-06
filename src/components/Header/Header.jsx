@@ -3,14 +3,13 @@ import BoxIcon from "./BoxIcon/BoxIcon";
 import { dataBoxIcon, dataMenu } from "./constants";
 import styles from "./styles.module.scss";
 import Menu from "./Menu/Menu";
-import logo from "../../assets/icons/images/Logo-retina.png";
-import { TfiReload } from "react-icons/tfi";
-import { BsCart3, BsHeart } from "react-icons/bs";
+import { BsCart3 } from "react-icons/bs";
 import useScrollHandling from "@/hooks/useScrollHandling";
 import classNames from "classnames";
 import { SideBarContext } from "@/contexts/SideBarProvider";
 import cls from "classnames";
 import { StoreContext } from "@/contexts/StoreProvider";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
     const {
@@ -24,10 +23,13 @@ const Header = () => {
         icon,
         boxCart,
         quantity,
+        iconLogo,
     } = styles;
 
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFixedPosition] = useState(false);
+    const navigate = useNavigate();
+
     const {
         setIsOpen,
         setType,
@@ -54,6 +56,10 @@ const Header = () => {
           }, 0)
         : 0;
 
+    const handleNavigateToHome = () => {
+        navigate("/");
+    };
+
     useEffect(() => {
         setFixedPosition(scrollPosition >= 100);
     }, [scrollPosition]);
@@ -79,18 +85,18 @@ const Header = () => {
 
                     <div className={containerMenu}>
                         {dataMenu.slice(0, 3).map((item, index) => (
-                            <Menu key={index} content={item.content} />
+                            <Menu
+                                key={index}
+                                href={item.href}
+                                content={item.content}
+                            />
                         ))}
                     </div>
                 </div>
 
                 {/* logo */}
-                <div>
-                    <img
-                        src={logo}
-                        alt="logo"
-                        style={{ width: "153px", height: "53px" }}
-                    />
+                <div onClick={handleNavigateToHome}>
+                    <h1 className={iconLogo}>NC/H</h1>
                 </div>
 
                 {/* right */}
@@ -99,31 +105,14 @@ const Header = () => {
                         {dataMenu
                             .slice(3, dataMenu.length)
                             .map((item, index) => (
-                                <Menu key={index} content={item.content} />
+                                <Menu
+                                    key={index}
+                                    href={item.href}
+                                    content={item.content}
+                                />
                             ))}
                     </div>
                     <div className={containerBoxIcon}>
-                        <div
-                            className={icon}
-                            onClick={() => handleOpenSideBar("compare")}
-                        >
-                            <TfiReload
-                                style={{
-                                    fontSize: "20px",
-                                }}
-                            />
-                        </div>
-                        <div
-                            className={icon}
-                            onClick={() => handleOpenSideBar("wishlist")}
-                        >
-                            <BsHeart
-                                style={{
-                                    fontSize: "20px",
-                                }}
-                            />
-                        </div>
-
                         <div
                             className={cls(icon, boxCart)}
                             onClick={() => handleOpenCartSideBar()}

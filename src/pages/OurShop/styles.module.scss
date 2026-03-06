@@ -25,7 +25,7 @@
 .containerBanner{
     @include flex_box_custom(center, center, 0);
     margin-top: 12px;
-    background-image: url("https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Background.jpeg");
+    background-image: url("https://img6.thuthuatphanmem.vn/uploads/2022/04/19/backgrround-thoi-trang-vintage-cuc-dep_044610084.jpg");
     height: 279px;
     background-position: center;
     background-repeat: no-repeat;
@@ -34,6 +34,7 @@
     .contentBox{
         @include flex_box_custom(center, center, 30px);
         flex-direction: column;
+
         .title{
             font-size: 28px;
             color: $four_color;

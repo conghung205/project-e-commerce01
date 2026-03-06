@@ -1,23 +1,28 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import { dataMenu } from "@components/Footer/constans";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
-    const { container, boxNav, logoImg, copyight } = styles;
+    const { container, boxNav, iconLogo, copyight } = styles;
+    const navigate = useNavigate();
+
+    const handleNavigateToHome = () => {
+        navigate("/");
+    };
 
     return (
         <section className={container}>
-            <div>
-                <img
-                    className={logoImg}
-                    src="https://xstore.b-cdn.net/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/marseille-logo.png"
-                    alt=""
-                />
+            {/* logo */}
+            <div onClick={handleNavigateToHome}>
+                <h1 className={iconLogo}>NC/H</h1>
             </div>
             <div>
                 <ul className={boxNav}>
                     {dataMenu.map((item, index) => (
-                        <li key={index}>{item.content}</li>
+                        <li onClick={() => navigate(item.href)} key={index}>
+                            {item.content}
+                        </li>
                     ))}
                 </ul>
             </div>

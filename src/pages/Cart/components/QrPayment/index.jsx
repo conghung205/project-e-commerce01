@@ -28,39 +28,34 @@ const QrPayment = () => {
 
     const qrCodeImage = `https://qr.sepay.vn/img?acc=VQRQAHKHF1598&bank=MBBank&amount=${totalAmount}&des=${id}`;
 
-    const intervalRef = useRef(null);
-
-    const handleGetDetailOrder = async () => {
-        if (!id) return;
-
-        try {
-            const res = await getDetailOrders(id);
-
-            if (res.data.data.status !== "pending") {
-                clearInterval(intervalRef.current);
-            }
-
-            if (res.data.data.status === "success") {
-                setIsSuccess(true);
-            } else {
-                setIsSuccess(false);
-            }
-
-            console.log(res);
-        } catch (error) {
-            console.log(error);
-        }
-    };
     useEffect(() => {
-        handleGetDetailOrder();
-        intervalRef.current = setInterval(() => {
-            handleGetDetailOrder();
-        }, 5000);
+        if (!id) return;
+        let intervalId;
 
-        return () => {
-            clearInterval(intervalRef.current);
+        const fetchData = async () => {
+            try {
+                const res = await getDetailOrders(id);
+                console.log(res);
+
+                if (res.data.data.status !== "pending") {
+                    clearInterval(intervalId);
+                }
+
+                if (res.data.data.status === "completed") {
+                    setIsSuccess(true);
+                }
+            } catch (err) {
+                console.log(err);
+                clearInterval(intervalId);
+            }
         };
-    }, []);
+
+        fetchData();
+
+        intervalId = setInterval(fetchData, 5000);
+
+        return () => clearInterval(intervalId);
+    }, [id]);
 
     return (
         <div className={container}>

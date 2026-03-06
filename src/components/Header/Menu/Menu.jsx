@@ -2,35 +2,29 @@ import React, { useContext, useState } from "react";
 import styles from "../styles.module.scss";
 import { SideBarContext } from "@/contexts/SideBarProvider";
 import { StoreContext } from "@/contexts/StoreProvider";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { IoIosLogOut } from "react-icons/io";
+import cls from "classnames";
 
 const Menu = ({ content, href }) => {
-    const { menu, subMenu } = styles;
+    const { menu, subMenu, menuActive } = styles;
     const { setIsOpen, setType } = useContext(SideBarContext);
     const { userInfo, handleLogOut } = useContext(StoreContext);
     const [isShowSubMenu, setIsShowSubMenu] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleClickShowLogin = () => {
         if (content === "Sign In" && !userInfo) {
             setIsOpen(true);
             setType("login");
         }
-        if (content === "Our Shop") {
-            navigate("/shop");
-        }
-        if (content === "About Us") {
-            navigate("/About-Us");
-        }
-        if (content === "Home") {
-            navigate("/");
-        }
     };
 
     const handleRenderText = (content) => {
         if (content === "Sign In" && userInfo) {
-            return `Hello ${userInfo?.username}`;
+            const name = userInfo?.username?.split("@")[0];
+            return `Hello: ${name}`;
         } else {
             return content;
         }
@@ -44,19 +38,25 @@ const Menu = ({ content, href }) => {
 
     return (
         <div
-            className={menu}
+            className={cls(menu, {
+                [menuActive]: location.pathname === href,
+            })}
             onMouseEnter={handleHover}
-            onClick={handleClickShowLogin}
+            onClick={() => {
+                (handleClickShowLogin(), navigate(href));
+            }}
+            onMouseLeave={() => setIsShowSubMenu(false)}
         >
             {handleRenderText(content)}
 
             {isShowSubMenu && (
-                <div
-                    onMouseLeave={() => setIsShowSubMenu(false)}
-                    className={subMenu}
-                    onClick={handleLogOut}
-                >
+                <div className={subMenu} onClick={handleLogOut}>
                     LOG OUT
+                    <IoIosLogOut
+                        style={{
+                            fontSize: "18px",
+                        }}
+                    />
                 </div>
             )}
         </div>

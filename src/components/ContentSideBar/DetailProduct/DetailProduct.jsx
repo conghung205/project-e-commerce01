@@ -17,6 +17,9 @@ import { FaWhatsapp } from "react-icons/fa6";
 import { FaSkype } from "react-icons/fa";
 import cls from "classnames";
 import { addProductToCart } from "@/apis/cartService";
+import { useNavigate } from "react-router-dom";
+import { ToastContext } from "@/contexts/ToastProvider";
+import { handleAddProductToCartCommon } from "@/utils/helper";
 
 const DetailProduct = () => {
     const {
@@ -53,9 +56,11 @@ const DetailProduct = () => {
         setIsLoading,
         setIsOpen,
     } = useContext(SideBarContext);
+    const { toast } = useContext(ToastContext);
 
     const [chooseSize, setChooSize] = useState("");
     const [quantity, setQuantity] = useState(1);
+    const navigate = useNavigate();
 
     const showOptions = [
         { label: "1", value: "1" },
@@ -80,25 +85,47 @@ const DetailProduct = () => {
     };
 
     const handleAddToCart = () => {
+        handleAddProductToCartCommon(
+            userId,
+            setIsOpen,
+            setType,
+            toast,
+            chooseSize,
+            detailProduct._id,
+            quantity,
+            setIsLoading,
+            handleGetListProductCart,
+        );
+    };
+
+    const handleBuyNow = () => {
+        if (!userId) {
+            setIsOpen(true);
+            setType("login");
+            toast.warning("Please login to add product to cart");
+            return;
+        }
+
+        if (!chooseSize) {
+            toast.warning("Please choose size!");
+            return;
+        }
+
         const data = {
             userId,
             productId: detailProduct._id,
             quantity,
             size: chooseSize,
-            isMultiple: true,
         };
-
-        setIsOpen(false);
-        setIsLoading(true);
-
         addProductToCart(data)
             .then((res) => {
-                setType("cart");
-                setIsOpen(true);
-                handleGetListProductCart(userId, "cart");
+                navigate("/cart");
+                setIsOpen(false);
+                toast.success("Add product to cart successfully!");
             })
             .catch((err) => {
                 console.log(err);
+                toast.error("Add product to cart failed!");
             });
     };
 
@@ -165,6 +192,7 @@ const DetailProduct = () => {
                                 BUY NOW
                             </div>
                         }
+                        onClick={handleBuyNow}
                         Large={true}
                     />
                 </div>

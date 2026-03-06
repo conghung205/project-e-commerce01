@@ -11,10 +11,13 @@
     @include flex_box_custom(center, center, 20px);
     flex-direction: column;
 
-    .logoImg{
-        width: 160px;
+    .iconLogo{
+        font-size: 26px;
         color: #fff;
-        height: 55px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 5px #e7e7e7;
+        cursor: pointer;
     }
 
     .boxNav{
