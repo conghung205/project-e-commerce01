@@ -10,6 +10,8 @@ import { SideBarContext } from "@/contexts/SideBarProvider";
 import cls from "classnames";
 import { StoreContext } from "@/contexts/StoreProvider";
 import { useNavigate } from "react-router-dom";
+import { IoClose } from "react-icons/io5";
+import SearchBar from "@components/Header/SearchBar/SearchBar";
 
 const Header = () => {
     const {
@@ -28,6 +30,7 @@ const Header = () => {
 
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFixedPosition] = useState(false);
+    const [isShowSearch, setIsShowSearch] = useState(false);
     const navigate = useNavigate();
 
     const {
@@ -65,71 +68,83 @@ const Header = () => {
     }, [scrollPosition]);
 
     return (
-        <header
-            className={classNames(container, topHeader, {
-                [fixedHeader]: fixedPosition,
-            })}
-        >
-            <div className={containerHeader}>
-                {/* left */}
-                <div className={containerBox}>
-                    <div className={containerBoxIcon}>
-                        {dataBoxIcon.map((item, index) => (
-                            <BoxIcon
-                                key={index}
-                                type={item.type}
-                                href={item.href}
-                            />
-                        ))}
-                    </div>
+        <header>
+            <div
+                className={classNames(container, topHeader, {
+                    [fixedHeader]: fixedPosition,
+                })}
+            >
+                <div className={containerHeader}>
+                    {/* left */}
+                    <div className={containerBox}>
+                        <div className={containerBoxIcon}>
+                            {dataBoxIcon.map((item, index) => (
+                                <BoxIcon
+                                    key={index}
+                                    type={item.type}
+                                    href={item.href}
+                                />
+                            ))}
+                        </div>
 
-                    <div className={containerMenu}>
-                        {dataMenu.slice(0, 3).map((item, index) => (
-                            <Menu
-                                key={index}
-                                href={item.href}
-                                content={item.content}
-                            />
-                        ))}
-                    </div>
-                </div>
-
-                {/* logo */}
-                <div onClick={handleNavigateToHome}>
-                    <h1 className={iconLogo}>NC/H</h1>
-                </div>
-
-                {/* right */}
-                <div className={containerBox}>
-                    <div className={containerMenu}>
-                        {dataMenu
-                            .slice(3, dataMenu.length)
-                            .map((item, index) => (
+                        <div className={containerMenu}>
+                            {dataMenu.slice(0, 3).map((item, index) => (
                                 <Menu
                                     key={index}
                                     href={item.href}
                                     content={item.content}
                                 />
                             ))}
+                        </div>
                     </div>
-                    <div className={containerBoxIcon}>
-                        <div
-                            className={cls(icon, boxCart)}
-                            onClick={() => handleOpenCartSideBar()}
-                        >
-                            <BsCart3
-                                style={{
-                                    fontSize: "20px",
-                                }}
-                            />
 
-                            <div className={quantity}>
-                                {totalItemCart || userInfo?.amountCart || 0}
+                    {/* logo */}
+                    <div onClick={handleNavigateToHome}>
+                        <h1 className={iconLogo}>NC/H</h1>
+                    </div>
+
+                    {/* right */}
+                    <div className={containerBox}>
+                        <div className={containerMenu}>
+                            {dataMenu
+                                .slice(3, dataMenu.length)
+                                .map((item, index) => (
+                                    <Menu
+                                        key={index}
+                                        href={item.href}
+                                        content={item.content}
+                                        onSearchClick={() =>
+                                            setIsShowSearch(true)
+                                        }
+                                    />
+                                ))}
+                        </div>
+                        <div className={containerBoxIcon}>
+                            <div
+                                className={cls(icon, boxCart)}
+                                onClick={() => handleOpenCartSideBar()}
+                            >
+                                <BsCart3
+                                    style={{
+                                        fontSize: "20px",
+                                    }}
+                                />
+
+                                <div className={quantity}>
+                                    {totalItemCart || userInfo?.amountCart || 0}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {isShowSearch && (
+                <SearchBar
+                    isShowSearch={isShowSearch}
+                    setIsShowSearch={setIsShowSearch}
+                />
+            )}
         </header>
     );
 };

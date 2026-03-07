@@ -91,7 +91,7 @@ const QrPayment = () => {
 
                     <div className={cls(flex, des)}>
                         <div>Số Tài Khoản:</div>
-                        <div>123456789</div>
+                        <div>0123456674</div>
                     </div>
 
                     <div className={cls(flex, des)}>

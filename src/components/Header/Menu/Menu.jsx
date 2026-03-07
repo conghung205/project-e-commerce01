@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 import cls from "classnames";
 
-const Menu = ({ content, href }) => {
+const Menu = ({ content, href, onSearchClick }) => {
     const { menu, subMenu, menuActive } = styles;
     const { setIsOpen, setType } = useContext(SideBarContext);
     const { userInfo, handleLogOut } = useContext(StoreContext);
@@ -19,6 +19,14 @@ const Menu = ({ content, href }) => {
             setIsOpen(true);
             setType("login");
         }
+    };
+
+    const handleNavigate = () => {
+        if (content === "Search") {
+            onSearchClick();
+            return;
+        }
+        navigate(href);
     };
 
     const handleRenderText = (content) => {
@@ -43,7 +51,8 @@ const Menu = ({ content, href }) => {
             })}
             onMouseEnter={handleHover}
             onClick={() => {
-                (handleClickShowLogin(), navigate(href));
+                handleClickShowLogin();
+                handleNavigate();
             }}
             onMouseLeave={() => setIsShowSubMenu(false)}
         >

@@ -31,7 +31,7 @@ const Steps = () => {
             </div>
 
             <div className={textNoti}>
-                You are out of time! Checkout now to avoid losing your order!
+                Review your order and proceed to checkout.
             </div>
         </div>
     );

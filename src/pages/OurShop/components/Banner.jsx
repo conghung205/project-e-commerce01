@@ -21,7 +21,7 @@ const Banner = () => {
                     <div className={countDownBox}>
                         <CountdownTimer targetDate={targetDate} />
                     </div>
-                    <div className={title}>The Classic Make A Comeback</div>
+                    <div className={title}>Timeless Style, Modern Comeback</div>
                     <Button
                         onClick={handleNavigateToCart}
                         content={"Buy now"}

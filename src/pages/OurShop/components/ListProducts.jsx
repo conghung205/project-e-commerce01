@@ -5,6 +5,7 @@ import ProductItem from "@components/ProductItem/ProductItem";
 import styles from "../styles.module.scss";
 import Button from "@components/Button/Button";
 import LoadingTextComon from "@components/LoadingTextCommon/LoadingTextComon";
+import { useLocation } from "react-router-dom";
 
 const ListProducts = () => {
     const { containerProduct, sectionListProduct } = styles;
@@ -18,6 +19,18 @@ const ListProducts = () => {
         isLoadMore,
     } = useContext(OurShopContext);
 
+    //search
+    const location = useLocation();
+
+    const params = new URLSearchParams(location.search);
+    const keyword = params.get("search");
+
+    const filteredProducts = keyword
+        ? products.filter((item) =>
+              item.name.toLowerCase().includes(keyword.toLowerCase()),
+          )
+        : products;
+
     return (
         <div className={sectionListProduct}>
             <MainLayout>
@@ -26,7 +39,7 @@ const ListProducts = () => {
                 ) : (
                     <>
                         <div className={isShowGrid ? containerProduct : ""}>
-                            {products.map((product, index) => (
+                            {filteredProducts.map((product, index) => (
                                 <ProductItem
                                     key={index}
                                     src={product.images[0]}
