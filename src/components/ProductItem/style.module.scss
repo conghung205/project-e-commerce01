@@ -60,7 +60,6 @@
         right: -100%;
         opacity: 0;
         bottom: 24px;
-        background-color: $white_color;
         transition: right 300ms linear;
     }
 
@@ -69,9 +68,12 @@
         opacity: 1;
     }
     .boxIcon{
+        @include flex_box_custom(center, center, 0px);
+        margin-top: 10px;
         width: 40px;
         height: 40px;
-        @include flex_box_custom(center, center, 0px);
+        border-radius: 8px;
+        background-color: $white_color;
         cursor: pointer;
         
 

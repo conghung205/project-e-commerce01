@@ -3,6 +3,7 @@ import styles from "../styles.module.scss";
 import fbIcon from "@icons/svgs/fbIcon.svg";
 import instagramIcon from "@icons/svgs/instagramIcon.svg";
 import youtubeIcon from "@icons/svgs/youtubeIcon.svg";
+import teleIcon from "@icons/svgs/teleIcon.svg";
 
 const BoxIcon = ({ type, href }) => {
     const { boxIcon } = styles;
@@ -15,6 +16,8 @@ const BoxIcon = ({ type, href }) => {
                 return instagramIcon;
             case "ytb":
                 return youtubeIcon;
+            case "tele":
+                return teleIcon;
             default:
                 break;
         }

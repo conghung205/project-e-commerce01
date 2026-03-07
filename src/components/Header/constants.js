@@ -8,7 +8,7 @@ const dataMenu = [
     { content: "Home", href: "/" },
     { content: "Our Shop", href: "/shop" },
     { content: "About Us", href: "/About-Us" },
-    { content: "Contacts", href: "#" },
+    { content: "Contacts", href: "/contact-us" },
     { content: "Search", href: "#" },
     { content: "Sign In", href: "#" },
 ];

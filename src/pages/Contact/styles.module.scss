@@ -1,0 +1,117 @@
+
+.container{
+    padding-top: 83px;
+
+    .map{
+        padding: 15px;
+        
+
+        img{
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .containerContent{
+        padding: 15px;
+    }
+    .content{
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #e1e1e1;
+
+        .title{
+            font-size: 24px;
+            font-weight: 400;
+            color: #222;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        
+
+        .info{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 30%;
+            padding: 55px;
+
+            .boxInfoContent{
+                margin: 20px 0;
+                font-size: 16px;
+                color: #222;
+
+                .subTitle{
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                }
+
+                .desc{
+                    margin-top: 5px;
+                    color: #555;
+                }
+            }
+
+            .boxIcon{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+
+        .contact{
+            flex: 1;
+            padding: 55px 100px;
+            border-left: 1px solid #e1e1e1;
+
+            .desc{
+                margin-top: 20px;
+                color: #555;
+            }
+
+            .boxRegister{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                gap: 30px;
+                margin-top: 25px;
+
+                div{
+                    flex: 1;
+                }
+            }
+
+            .boxBtn{
+                margin-top: 20px;
+            }
+
+            textarea{
+                height: 160px;
+                outline: none;
+                border: 1px solid #e1e1e1;
+                padding: 17px;
+                line-height: 1.5;
+                min-height: 42px;
+                width: 100%;
+                border-radius: 3px;
+            }
+
+            .textFooter{
+                margin: 28px 0;
+                padding: 15px 20px;
+                font-size: 14px;
+                color: #555;
+                border: 1px solid #555;
+            }
+        }
+    }
+
+    .errMsg{
+        font-size: 14px;
+        color: red;
+    }
+    
+}

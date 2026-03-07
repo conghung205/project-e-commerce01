@@ -5,7 +5,7 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import classNames from "classnames";
 
 const InputCommon = ({ label, type, isRequired = false, ...props }) => {
-    const { labelInput, boxInput, container, boxIcon, error, errMsg } = styles;
+    const { labelInput, boxInput, container, boxIcon, errMsg } = styles;
     const { formik, id } = props;
     const [showPassword, setShowPassword] = useState(false);
 
@@ -21,11 +21,7 @@ const InputCommon = ({ label, type, isRequired = false, ...props }) => {
     const messageErr = formik.errors[id];
 
     return (
-        <div
-            className={classNames(container, {
-                [error]: isErr,
-            })}
-        >
+        <div className={classNames(container)}>
             <div className={labelInput}>
                 {label}
                 {isRequired && <span> *</span>}
@@ -36,6 +32,7 @@ const InputCommon = ({ label, type, isRequired = false, ...props }) => {
                     {...props}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
+                    onFocus={() => formik.setFieldTouched(id, false)}
                     value={formik.values[id]}
                 />
 

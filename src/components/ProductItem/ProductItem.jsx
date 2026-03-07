@@ -119,6 +119,8 @@ const ProductItem = ({
                     onClick={handleNavigateToDetail}
                     className={showImgWhenHover}
                 />
+
+                {/* Khi hover hiện các options */}
                 <div className={showOptionWhenHover}>
                     <div onClick={handleOpenCart} className={boxIcon}>
                         <BsCart3 style={{ fontSize: "20px" }} />
