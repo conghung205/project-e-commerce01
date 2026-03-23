@@ -5,29 +5,14 @@ import { StoreContext } from "@/contexts/StoreProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
 import cls from "classnames";
+import { useMenuAction } from "@/hooks/useMenuAction";
 
 const Menu = ({ content, href, onSearchClick }) => {
     const { menu, subMenu, menuActive } = styles;
-    const { setIsOpen, setType } = useContext(SideBarContext);
     const { userInfo, handleLogOut } = useContext(StoreContext);
     const [isShowSubMenu, setIsShowSubMenu] = useState(false);
-    const navigate = useNavigate();
     const location = useLocation();
-
-    const handleClickShowLogin = () => {
-        if (content === "Sign In" && !userInfo) {
-            setIsOpen(true);
-            setType("login");
-        }
-    };
-
-    const handleNavigate = () => {
-        if (content === "Search") {
-            onSearchClick();
-            return;
-        }
-        navigate(href);
-    };
+    const { handleMenuAction } = useMenuAction();
 
     const handleRenderText = (content) => {
         if (content === "Sign In" && userInfo) {
@@ -51,8 +36,7 @@ const Menu = ({ content, href, onSearchClick }) => {
             })}
             onMouseEnter={handleHover}
             onClick={() => {
-                handleClickShowLogin();
-                handleNavigate();
+                handleMenuAction({ content, href, onSearchClick });
             }}
             onMouseLeave={() => setIsShowSubMenu(false)}
         >

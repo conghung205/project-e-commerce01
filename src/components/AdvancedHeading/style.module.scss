@@ -34,3 +34,15 @@
     font-weight: 400;
 
 }
+
+@media (max-width: 930px) {
+    .title{
+        font-size: 18px;
+    }
+    .desc{
+        font-size: 12px;
+    }
+    .headline{
+        height: 2px;
+    }
+}

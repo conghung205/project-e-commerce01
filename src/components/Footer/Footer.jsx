@@ -4,7 +4,7 @@ import { dataMenu } from "@components/Footer/constans";
 import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
-    const { container, boxNav, iconLogo, copyight } = styles;
+    const { container, boxNav, iconLogo, copyight, ckeckout } = styles;
     const navigate = useNavigate();
 
     const handleNavigateToHome = () => {
@@ -27,7 +27,7 @@ const Footer = () => {
                 </ul>
             </div>
             <div>
-                <p>Guaranteed safe ckeckout</p>
+                <p className={ckeckout}>Guaranteed safe ckeckout</p>
             </div>
             <div>
                 <img

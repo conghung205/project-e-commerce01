@@ -6,7 +6,7 @@
     @include flex_box_custom (center, center, 0px);
 
     background-image: url(../../assets/images/8.png);
-    min-height: 750px;
+    min-height: 85vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -18,7 +18,7 @@
     @include flex_box_custom (center, center, 20px);
 
     flex-direction: column;
-
+    padding: 0 50px;
     // z-index: 1;
 }
 

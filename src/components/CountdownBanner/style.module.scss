@@ -25,3 +25,12 @@
     text-transform: capitalize;
     background-color: rgba(0,0,0,0.2);
 }
+
+@media (max-width: 930px) {
+    .container{
+        padding: 30px;
+    }
+    .title{
+        font-size: 20px;
+    }
+}

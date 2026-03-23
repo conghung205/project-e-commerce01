@@ -36,24 +36,29 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 0 auto;
     height: 83px;
     width: 1250px;
-}
+    max-width: 100%;
 
-.containerBoxIcon{
-    @include flex_box_custom(center, center, 20px);
-
-    .icon{
-        cursor: pointer;
+    .containerBox{
+        @include flex_box_custom(center, center, 0);
+        flex: 1;
     }
 }
 
-.containerBox{
-    @include flex_box_custom(center, center, 20px)
+
+
+.containerBoxIcon{
+    @include flex_box_custom(center, center, 20px);
+    .icon{
+        cursor: pointer;
+    }
+
 }
 
 .containerMenu{
-    @include flex_box_custom(center, center, 40px);
+    @include flex_box_custom(center, center, 0);
     margin-top: -6px;
     
 }
@@ -69,7 +74,9 @@
 
 .menu{
     cursor: pointer;
+    padding: 0 20px;
     padding-top: 8px;
+
     font-size: 16px;
     color: #000000;
     position: relative;
@@ -123,5 +130,104 @@
         height: 15px;
         @include radius_common(50%);
         @include flex_box_custom(center, center, 0);
+    }
+}
+
+.menuIcon{
+    margin-right: 30px;
+    font-size: 26px;
+    cursor: pointer;
+    display: none;
+}
+
+
+
+// menu formobile
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+}
+
+/* nền mờ */
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+}
+
+/* sidebar */
+.sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40vw;
+  height: 100%;
+  background: white;
+  padding: 20px 0;
+
+  transform: translateX(0);
+    transition: transform 0.5s ease;
+  animation: slideIn 0.5s ease;
+}
+
+.closing {
+  transform: translateX(100%);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.closeIcon {
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 20px;
+
+  &:hover{
+    color: #585858;
+  }
+}
+
+.mobileItem {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+
+  &:hover{
+    background-color: #ddd;
+  }
+}
+
+/* Tablet */
+@media (max-width: 930px) {
+    .containerHeader {
+        .containerBox {
+            display: none;
+        }
+    }
+
+    .logo{
+    margin-left: 30px;
+    font-size: 26px;
+    }
+
+    .menuIcon{
+        display: block;
+    }
+}
+
+@media (max-width: 500px){
+    .sidebar{
+        width: 60vw;
     }
 }

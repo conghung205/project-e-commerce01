@@ -5,10 +5,17 @@
     padding: 20px 55px;
     background-color: $primary_color;
     margin-top: -75px;
+
     display: flex;
 
     position: relative;
     z-index: 1;
+}
+/* Tablet */
+@media (max-width: 930px) {
+    .container{
+        display: none
+    }
 }
 
 .containerCard{
@@ -24,7 +31,7 @@
 }
 
 .cardContent{
-    width: 192px;
+    max-width: 192px;
 }
 
 .titleCard{

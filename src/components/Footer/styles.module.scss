@@ -43,3 +43,31 @@
         margin-top: 40px;
     }
 }
+
+@media (max-width: 930px) {
+    .container{
+        margin-top: 40px;
+        padding: 20px 0;
+        gap: 10px;
+
+
+        .boxNav{
+            margin: 5px 0 20px 0;
+            font-size: 14px;
+
+            li{
+                margin: 0 10px;
+            }
+        }
+
+        .ckeckout{
+            font-size: 14px;
+        }
+    }
+    
+    .copyight{
+        font-size: 14px;
+        padding: 0 20px;
+        text-align: center;
+    }
+}
